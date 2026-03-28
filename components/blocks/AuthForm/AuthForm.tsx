@@ -1,9 +1,13 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
+import { loginUser, registerUser } from '@/lib/clientApi';
 import css from './AuthForm.module.css';
 
 type AuthMode = 'login' | 'signup';
@@ -14,23 +18,42 @@ interface AuthFormProps {
 
 const loginSchema = Yup.object({
   email: Yup.string().email('Невірний формат пошти').required("Обов'язкове поле"),
-  password: Yup.string().min(6, 'Мінімум 6 символів').required("Обов'язкове поле"),
+  password: Yup.string().min(8, 'Мінімум 8 символів').required("Обов'язкове поле"),
 });
 
 const signupSchema = Yup.object({
   name: Yup.string().min(2, 'Мінімум 2 символи').required("Обов'язкове поле"),
   email: Yup.string().email('Невірний формат пошти').required("Обов'язкове поле"),
-  password: Yup.string().min(6, 'Мінімум 6 символів').required("Обов'язкове поле"),
+  password: Yup.string().min(8, 'Мінімум 8 символів').required("Обов'язкове поле"),
 });
 
 export default function AuthForm({ mode }: AuthFormProps) {
   const isLogin = mode === 'login';
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: isLogin ? { email: '', password: '' } : { name: '', email: '', password: '' },
     validationSchema: isLogin ? loginSchema : signupSchema,
-    onSubmit: values => {
-      console.log(mode, values);
+    onSubmit: async (values, { setSubmitting }) => {
+      try {
+        if (isLogin) {
+          await loginUser({ email: values.email, password: values.password });
+        } else {
+          await registerUser({
+            name: (values as Record<string, string>).name,
+            email: values.email,
+            password: values.password,
+          });
+        }
+        router.push('/profile');
+      } catch (err: unknown) {
+        const msg =
+          (err as { response?: { data?: { message?: string } } })?.response?.data?.message ||
+          'Щось пішло не так';
+        iziToast.error({ title: 'Помилка', message: msg, position: 'topRight' });
+      } finally {
+        setSubmitting(false);
+      }
     },
   });
 
@@ -116,8 +139,8 @@ export default function AuthForm({ mode }: AuthFormProps) {
             )}
           </div>
 
-          <button type="submit" className={css.submit}>
-            {isLogin ? 'Увійти' : 'Зареєструватись'}
+          <button type="submit" className={css.submit} disabled={formik.isSubmitting}>
+            {formik.isSubmitting ? 'Зачекайте...' : isLogin ? 'Увійти' : 'Зареєструватись'}
           </button>
         </form>
       </div>
