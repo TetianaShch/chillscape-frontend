@@ -1,9 +1,16 @@
-import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
+import { Montserrat } from 'next/font/google';
+import 'modern-normalize/modern-normalize.css';
+import './globals.css';
+
+const montserrat = Montserrat({
+  variable: '--montserrat-font',
+  subsets: ['cyrillic', 'latin'],
+});
 
 export const metadata: Metadata = {
-  title: "Relax Map",
-  description: "Relax Map frontend application",
+  title: 'Relax Map',
+  description: 'Relax Map frontend application',
 };
 
 export default function RootLayout({
@@ -13,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={montserrat.variable}>{children}</body>
     </html>
   );
 }
