@@ -1,0 +1,84 @@
+.container {
+  padding: 60px;
+  background-color: #fdf6f0; /* Фон как на макете */
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: #1b391b;
+}
+
+.uiGrid {
+  display: grid;
+  grid-template-columns: 150px 1fr 300px; /* Состояния | Кнопки | Ссылки */
+  gap: 40px;
+  border: 1px dashed #ccc;
+  padding: 40px;
+  background: white;
+  border-radius: 8px;
+}
+
+.columnTitle {
+  font-size: 24px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #1b391b;
+  padding-bottom: 10px;
+}
+
+.stateRow {
+  display: contents; /* Позволяет элементам участвовать в общей сетке grid */
+}
+
+.stateLabel {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  color: #333;
+  height: 60px; /* Выравнивание по высоте с кнопками */
+}
+
+.elementsGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 60px;
+}
+
+/* Имитация ховера для демонстрации на странице */
+.fakeHover {
+  filter: brightness(0.9);
+}
+/* src/app/test/page.module.css */
+.linkWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1b391b; /* Темно-зелений для Normal/Active */
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.linkHover {
+  color: #cc6534; /* Оранжевий для Hover */
+}
+
+.linkDisabled {
+  color: #ccc;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+/* Контейнер для всієї сітки елементів */
+.uiGrid {
+  display: grid;
+  grid-template-columns: 150px 1fr 250px; /* Стан | Кнопки | Посилання */
+  gap: 40px;
+  align-items: center;
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+}
