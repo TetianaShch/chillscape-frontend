@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import css from './Footer.module.css';
@@ -8,8 +7,8 @@ import Logo from '@/components/ui/Logo/Logo';
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   return (
-    <footer className={css.footer}>
-      <div className={css.container}>
+    <footer className={`${css.footer} section`}>
+      <div className="container">
         <div className={css.content}>
           <Logo className={css.logoCustom} />
           <div className={css.socials}>
