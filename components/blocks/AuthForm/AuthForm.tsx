@@ -58,92 +58,90 @@ export default function AuthForm({ mode }: AuthFormProps) {
   });
 
   return (
-    <section className={css.page}>
-      <div className={css.card}>
-        <div className={css.tabs} role="tablist" aria-label="Вкладки автентифікації">
-          <Link
-            href="/signup"
-            className={`${css.tab} ${!isLogin ? css.tabActive : css.tabInactive}`}
-            aria-selected={!isLogin}
-          >
-            Реєстрація
-          </Link>
-          <Link
-            href="/login"
-            className={`${css.tab} ${isLogin ? css.tabActive : css.tabInactive}`}
-            aria-selected={isLogin}
-          >
-            Вхід
-          </Link>
+    <div className={css.card}>
+      <div className={css.tabs} role="tablist" aria-label="Вкладки автентифікації">
+        <Link
+          href="/signup"
+          className={`${css.tab} ${!isLogin ? css.tabActive : css.tabInactive}`}
+          aria-selected={!isLogin}
+        >
+          Реєстрація
+        </Link>
+        <Link
+          href="/login"
+          className={`${css.tab} ${isLogin ? css.tabActive : css.tabInactive}`}
+          aria-selected={isLogin}
+        >
+          Вхід
+        </Link>
+      </div>
+
+      <h1 className={css.title}>{isLogin ? 'Вхід' : 'Реєстрація'}</h1>
+
+      <form className={css.form} onSubmit={formik.handleSubmit} noValidate>
+        {!isLogin && (
+          <div className={css.field}>
+            <label className={css.fieldLabel} htmlFor="name">
+              Ім&apos;я*
+            </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              className={css.input}
+              placeholder="Ваше ім'я"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={(formik.values as Record<string, string>).name ?? ''}
+            />
+            {formik.touched.name && (formik.errors as Record<string, string>).name && (
+              <span className={css.error}>{(formik.errors as Record<string, string>).name}</span>
+            )}
+          </div>
+        )}
+
+        <div className={css.field}>
+          <label className={css.fieldLabel} htmlFor="email">
+            Пошта*
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            className={css.input}
+            placeholder="hello@relaxmap.ua"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+          />
+          {formik.touched.email && formik.errors.email && (
+            <span className={css.error}>{formik.errors.email}</span>
+          )}
         </div>
 
-        <h1 className={css.title}>{isLogin ? 'Вхід' : 'Реєстрація'}</h1>
-
-        <form className={css.form} onSubmit={formik.handleSubmit} noValidate>
-          {!isLogin && (
-            <div className={css.field}>
-              <label className={css.fieldLabel} htmlFor="name">
-                Ім&apos;я*
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                className={css.input}
-                placeholder="Ваше ім'я"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={(formik.values as Record<string, string>).name ?? ''}
-              />
-              {formik.touched.name && (formik.errors as Record<string, string>).name && (
-                <span className={css.error}>{(formik.errors as Record<string, string>).name}</span>
-              )}
-            </div>
+        <div className={css.field}>
+          <label className={css.fieldLabel} htmlFor="password">
+            Пароль*
+          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            className={css.input}
+            placeholder="********"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+          />
+          {formik.touched.password && formik.errors.password && (
+            <span className={css.error}>{formik.errors.password}</span>
           )}
+        </div>
 
-          <div className={css.field}>
-            <label className={css.fieldLabel} htmlFor="email">
-              Пошта*
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              className={css.input}
-              placeholder="hello@relaxmap.ua"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-            />
-            {formik.touched.email && formik.errors.email && (
-              <span className={css.error}>{formik.errors.email}</span>
-            )}
-          </div>
-
-          <div className={css.field}>
-            <label className={css.fieldLabel} htmlFor="password">
-              Пароль*
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              className={css.input}
-              placeholder="********"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
-            />
-            {formik.touched.password && formik.errors.password && (
-              <span className={css.error}>{formik.errors.password}</span>
-            )}
-          </div>
-
-          <button type="submit" className={css.submit} disabled={formik.isSubmitting}>
-            {formik.isSubmitting ? 'Зачекайте...' : isLogin ? 'Увійти' : 'Зареєструватись'}
-          </button>
-        </form>
-      </div>
-    </section>
+        <button type="submit" className={css.submit} disabled={formik.isSubmitting}>
+          {formik.isSubmitting ? 'Зачекайте...' : isLogin ? 'Увійти' : 'Зареєструватись'}
+        </button>
+      </form>
+    </div>
   );
 }
