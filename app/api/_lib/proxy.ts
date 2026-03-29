@@ -19,9 +19,16 @@ const getBody = async (request: Request) => {
 
   if (contentType.includes('application/x-www-form-urlencoded')) {
     const formData = await request.formData();
-    return new URLSearchParams(formData as any);
-  }
+    const params = new URLSearchParams();
 
+    for (const [key, value] of formData.entries()) {
+      if (typeof value === 'string') {
+        params.append(key, value);
+      }
+    }
+
+    return params;
+  }
   return await request.text();
 };
 
