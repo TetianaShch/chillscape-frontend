@@ -1,11 +1,11 @@
 'use client';
 
-import Link from "next/link";
-import { useId, useRef } from "react";
-import styles from "./ReviewsBlock.module.css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import type { Swiper as SwiperType } from "swiper";
-import "swiper/css";
+import { useRef } from 'react';
+import styles from './ReviewsBlock.module.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
+import 'swiper/css';
+import ReviewCard from './ReviewCard/ReviewCard';
 
 type Review = {
   id: string;
@@ -16,104 +16,44 @@ type Review = {
   locationSlug?: string;
 };
 
-type StarProps = {
-  type: "full" | "half" | "empty";
-};
-
-export function Star({ type }: StarProps) {
-  const gradientId = useId();
-
-  if (type === "full") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        width="20"
-        height="20"
-        fill="currentColor"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-      </svg>
-    );
-  }
-
-  if (type === "half") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        width="20"
-        height="20"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <defs>
-          <linearGradient id={gradientId}>
-            <stop offset="50%" stopColor="currentColor" />
-            <stop offset="50%" stopColor="transparent" />
-          </linearGradient>
-        </defs>
-        <path
-          fill={`url(#${gradientId})`}
-          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-        />
-      </svg>
-    );
-  }
-
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-    </svg>
-  );
-}
-
+// Локальні тестові дані
 const localReviews: Review[] = [
   {
-    id: "1",
+    id: '1',
     rating: 5,
-    text: "Неймовірне місце для перезавантаження. Природа просто вау!",
-    author: "Олена Коваль",
-    locationName: "Бакота",
-    locationSlug: "bakota",
+    text: 'Неймовірне місце для перезавантаження. Природа просто вау!',
+    author: 'Олена Коваль',
+    locationName: 'Бакота',
+    locationSlug: 'bakota',
   },
   {
-    id: "2",
+    id: '2',
     rating: 4,
     text: "Тихо, спокійно, дуже атмосферно. Обов'язково повернусь.",
-    author: "Ігор Петров",
-    locationName: "Карпати",
-    locationSlug: "mountains",
+    author: 'Ігор Петров',
+    locationName: 'Карпати',
+    locationSlug: 'mountains',
   },
   {
-    id: "3",
+    id: '3',
     rating: 5,
-    text: "Ідеальне місце для відпочинку від міської метушні.",
-    author: "Марія Шевченко",
-    locationName: "Ліс",
-    locationSlug: "forest",
+    text: 'Ідеальне місце для відпочинку від міської метушні.',
+    author: 'Марія Шевченко',
+    locationName: 'Ліс',
+    locationSlug: 'forest',
   },
   {
-    id: "4",
+    id: '4',
     rating: 4.5,
-    text: "Дуже затишно і красиво. Гарне місце для вікенду.",
-    author: "Анна Бойко",
-    locationName: "Озеро",
-    locationSlug: "lake",
+    text: 'Дуже затишно і красиво. Гарне місце для вікенду.',
+    author: 'Анна Бойко',
+    locationName: 'Озеро',
+    locationSlug: 'lake',
   },
 ];
 
 function ReviewsBlock() {
   const swiperRef = useRef<SwiperType | null>(null);
-  const reviews = localReviews;
 
   return (
     <section className={styles.reviews}>
@@ -130,48 +70,17 @@ function ReviewsBlock() {
           768: { slidesPerView: 2 },
           1280: { slidesPerView: 3 },
         }}
-        className={styles["reviews__slider"]}
+        className={styles.slider}
       >
-        {reviews.map((review) => (
+        {localReviews.map((review) => (
           <SwiperSlide key={review.id} className={styles["reviews__slide"]}>
-            <article className={styles["review-card"]}>
-              <div className={styles["review-card__top"]}>
-                <div className={styles["review-card__rating"]}>
-                  {Array.from({ length: 5 }).map((_, i) => {
-                    let type: "full" | "half" | "empty" = "empty";
-
-                    if (review.rating >= i + 1) {
-                      type = "full";
-                    } else if (review.rating > i) {
-                      type = "half";
-                    }
-
-                    return <Star key={i} type={type} />;
-                  })}
-                </div>
-
-                <p className={styles["review-card__text"]}>{review.text}</p>
-              </div>
-
-              <div className={styles["review-card__bottom"]}>
-                <span className={styles["review-card__author-name"]}>
-                  {review.author}
-                </span>
-
-                {review.locationSlug ? (
-                  <Link
-                    href={`/locations/${review.locationSlug}`}
-                    className={styles["review-card__author-location"]}
-                  >
-                    {review.locationName}
-                  </Link>
-                ) : (
-                  <span className={styles["review-card__author-location"]}>
-                    {review.locationName}
-                  </span>
-                )}
-              </div>
-            </article>
+            <ReviewCard
+              rating={review.rating}
+              text={review.text}
+              author={review.author}
+              locationName={review.locationName}
+              locationSlug={review.locationSlug}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
