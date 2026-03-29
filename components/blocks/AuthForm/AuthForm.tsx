@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 
 import { loginUser, registerUser } from '@/lib/clientApi';
+import { Input } from '@/components/ui/Input/Input';
+import { Button } from '@/components/ui/Button/Button';
 import css from './AuthForm.module.css';
 
 type AuthMode = 'login' | 'signup';
@@ -79,67 +81,52 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
       <form className={css.form} onSubmit={formik.handleSubmit} noValidate>
         {!isLogin && (
-          <div className={css.field}>
-            <label className={css.fieldLabel} htmlFor="name">
-              Ім&apos;я*
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              className={css.input}
-              placeholder="Ваше ім'я"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={(formik.values as Record<string, string>).name ?? ''}
-            />
-            {formik.touched.name && (formik.errors as Record<string, string>).name && (
-              <span className={css.error}>{(formik.errors as Record<string, string>).name}</span>
-            )}
-          </div>
+          <Input
+            id="name"
+            name="name"
+            type="text"
+            label="Ім'я*"
+            placeholder="Ваше ім'я"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={(formik.values as Record<string, string>).name ?? ''}
+            error={
+              formik.touched.name && (formik.errors as Record<string, string>).name
+                ? (formik.errors as Record<string, string>).name
+                : undefined
+            }
+          />
         )}
 
-        <div className={css.field}>
-          <label className={css.fieldLabel} htmlFor="email">
-            Пошта*
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            className={css.input}
-            placeholder="hello@relaxmap.ua"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-          />
-          {formik.touched.email && formik.errors.email && (
-            <span className={css.error}>{formik.errors.email}</span>
-          )}
-        </div>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          label="Пошта*"
+          placeholder="hello@relaxmap.ua"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.email}
+          error={formik.touched.email && formik.errors.email ? formik.errors.email : undefined}
+        />
 
-        <div className={css.field}>
-          <label className={css.fieldLabel} htmlFor="password">
-            Пароль*
-          </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            className={css.input}
-            placeholder="********"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-          />
-          {formik.touched.password && formik.errors.password && (
-            <span className={css.error}>{formik.errors.password}</span>
-          )}
-        </div>
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          label="Пароль*"
+          placeholder="********"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.password}
+          error={
+            formik.touched.password && formik.errors.password ? formik.errors.password : undefined
+          }
+        />
 
-        <button type="submit" className={css.submit} disabled={formik.isSubmitting}>
+        <Button type="submit" variant="primary" disabled={formik.isSubmitting}>
           {formik.isSubmitting ? 'Зачекайте...' : isLogin ? 'Увійти' : 'Зареєструватись'}
-        </button>
+        </Button>
       </form>
     </div>
   );
