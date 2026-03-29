@@ -35,9 +35,8 @@
 
 /* Состояния Hover и Focus */
 .input:hover:not(:disabled):not(.error) {
-  background-color: #ffe5d9; /* Чуть темнее фон, как на макете */
+  background-color: #ffe5d9; 
 }
-
 .input:focus:not(.error) {
   outline: none;
   border-color: var(--button-primary); /* Оранжевый при фокусе */
