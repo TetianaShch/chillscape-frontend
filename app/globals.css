@@ -30,6 +30,8 @@ html {
 
 body {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-family: var(--montserrat-font), sans-serif;
   background-color: var(--background);
   color: var(--text-green);
