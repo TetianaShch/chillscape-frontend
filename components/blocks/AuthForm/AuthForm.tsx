@@ -4,8 +4,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
+import toast from 'react-hot-toast';
 
 import { loginUser, registerUser } from '@/lib/clientApi';
 import css from './AuthForm.module.css';
@@ -50,7 +49,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         const msg =
           (err as { response?: { data?: { message?: string } } })?.response?.data?.message ||
           'Щось пішло не так';
-        iziToast.error({ title: 'Помилка', message: msg, position: 'topRight' });
+        toast.error(msg);
       } finally {
         setSubmitting(false);
       }

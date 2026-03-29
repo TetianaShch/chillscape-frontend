@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
+import { Toaster } from 'react-hot-toast';
 import 'modern-normalize/modern-normalize.css';
 import './globals.css';
 import Header from '@/components/layout/Header/Header';
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <body className={montserrat.variable}>
+        <Toaster position="top-right" />
         <Header />
         <main style={{ flex: 1 }}>{children}</main>
         <Footer />
