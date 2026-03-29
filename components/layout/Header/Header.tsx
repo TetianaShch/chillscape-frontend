@@ -8,7 +8,7 @@ import css from './Header.module.css';
 
 export default function Header() {
   // для тесту
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   // для тесту
   const user = {
     username: 'Name',
