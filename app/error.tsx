@@ -9,7 +9,6 @@ interface ErrorProps {
 export default function Error({ reset }: ErrorProps) {
   return (
     <div className={css.container}>
-      <h1 className={css.code}>500</h1>
       <h2 className={css.title}>Something went wrong</h2>
       <p className={css.text}>
         An unexpected error occurred. Please try again or return to the home page.
