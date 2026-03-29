@@ -17,14 +17,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="uk">
       <body className={montserrat.variable}>
         <Header />
         <main style={{ flex: 1 }}>{children}</main>
+        {modal}
         <Footer />
       </body>
     </html>

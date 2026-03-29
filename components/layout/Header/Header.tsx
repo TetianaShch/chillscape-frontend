@@ -46,6 +46,9 @@ export default function Header() {
   return (
     <header className={`${css.header} section`}>
       <div className={`container ${css.inner}`}>
+        <Link href="/logout" className={css.btnSecondary}>
+                Вихід
+              </Link>
         <Logo />
 
         <div className={css.desktopRight}>
