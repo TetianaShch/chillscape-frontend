@@ -1,10 +1,7 @@
 .card {
-  border: 0px solid rgba(0, 0, 0, 0.15);
+  border: 0px solid var(--border);
   border-radius: 12px;
-  background: #ffe5d9;
-
-  width: 335px;
-  height: 520px;
+  background: var(--foreground);
 }
 
 .bottom {
@@ -16,8 +13,8 @@
 }
 
 .link {
-  background-color: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: var(--button-secondary);
+  border: 1px solid var(--border);
   border-radius: 6px;
   padding: 12px;
 
