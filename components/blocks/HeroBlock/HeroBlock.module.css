@@ -45,18 +45,15 @@
 }
 
 .title {
-  font-family: var(--montserrat-font);
   color: var(--text-white);
   margin-bottom: 16px;
 }
 
 .subtitle {
-  font-family: var(--montserrat-font);
   font-size: 14px; 
   color: var(--text-white);
   margin-bottom: 24px;
   font-weight: 500;
-  line-height: 1.5;
 }
 
 .search {
