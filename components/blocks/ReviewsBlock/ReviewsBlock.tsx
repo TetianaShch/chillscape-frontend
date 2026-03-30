@@ -107,7 +107,7 @@ function ReviewsBlock() {
           aria-label="Previous"
           className={styles.arrowButton}
           onClick={() => swiperRef.current?.slidePrev()}
-          disabled={isBeginning}
+          
         >
           <svg
             className={styles.arrowIcon}
