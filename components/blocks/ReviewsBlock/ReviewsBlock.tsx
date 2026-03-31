@@ -1,153 +1,116 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './ReviewsBlock.module.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
-import 'swiper/css';
-import ReviewCard from '@/components/cards/ReviewCard/ReviewCard';
-import { Button } from '@/components/ui/Button/Button';
+import { Pagination } from 'swiper/modules';
 
-type Review = {
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+import ReviewCard from '@/components/cards/ReviewCard/ReviewCard';
+import ArrowButton from '@/components/ui/ArrowButton/ArrowButton';
+import { fetchReviews } from '@/lib/reviews';
+
+export type Review = {
   id: string;
   rating: number;
   text: string;
   author: string;
-  locationName: string;
-  locationSlug?: string;
+  locationType: string;
 };
-
-// Локальні тестові дані
-const localReviews: Review[] = [
-  {
-    id: '1',
-    rating: 5,
-    text: 'Неймовірне місце для перезавантаження. Природа просто вау!',
-    author: 'Олена Коваль',
-    locationName: 'Бакота',
-    locationSlug: 'bakota',
-  },
-  {
-    id: '2',
-    rating: 4,
-    text: "Тихо, спокійно, дуже атмосферно. Обов'язково повернусь.",
-    author: 'Ігор Петров',
-    locationName: 'Карпати',
-    locationSlug: 'mountains',
-  },
-  {
-    id: '3',
-    rating: 5,
-    text: 'Ідеальне місце для відпочинку від міської метушні.',
-    author: 'Марія Шевченко',
-    locationName: 'Ліс',
-    locationSlug: 'forest',
-  },
-  {
-    id: '4',
-    rating: 4.5,
-    text: 'Дуже затишно і красиво. Гарне місце для вікенду.',
-    author: 'Анна Бойко',
-    locationName: 'Озеро',
-    locationSlug: 'lake',
-  },
-];
 
 function ReviewsBlock() {
   const swiperRef = useRef<SwiperType | null>(null);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+
+  const hasReviews = reviews.length > 0;
+
+  useEffect(() => {
+    const loadReviews = async () => {
+      const data = await fetchReviews();
+      setReviews(data);
+    };
+
+    loadReviews();
+  }, []);
 
   const updateNavigationState = (swiper: SwiperType) => {
     setIsBeginning(swiper.isBeginning);
     setIsEnd(swiper.isEnd);
-  }
+  };
 
   return (
-    <section className={styles.reviews}>
-      <h2 className={styles.title}>Останні відгуки</h2>
+    <section className={`section ${styles.reviews}`}>
+      <div className="container">
+        <div className={styles.header}>
+          <h2 className={styles.title}>Останні відгуки</h2>
+        </div>
 
-      <Swiper
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-          updateNavigationState(swiper);
-        }}
-        onSlideChange={(swiper) => {
-          updateNavigationState(swiper);
-        }}
-        onResize={(swiper) => {
-          updateNavigationState(swiper);
-        }}
-        slidesPerView={1}
-        slidesPerGroup={1}
-        spaceBetween={32}
-        breakpoints={{
-          768: { slidesPerView: 2 },
-          1440: { slidesPerView: 3 },
-        }}
-        className={styles.slider}
-      >
-        {localReviews.map((review) => (
-          <SwiperSlide key={review.id} className={styles.slide}>
-            <ReviewCard
-              rating={review.rating}
-              text={review.text}
-              author={review.author}
-              locationName={review.locationName}
-              locationSlug={review.locationSlug}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        {hasReviews ? (
+          <>
+            <Swiper
+              modules={[Pagination]}
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+                updateNavigationState(swiper);
+              }}
+              onSlideChange={updateNavigationState}
+              onResize={updateNavigationState}
+              slidesPerView={1}
+              slidesPerGroup={1}
+              spaceBetween={32}
+              pagination={{
+                clickable: true,
+                dynamicBullets: true,
+              }}
+              breakpoints={{
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                1440: {
+                  slidesPerView: 3,
+                  spaceBetween: 24,
+                },
+              }}
+              className={styles.slider}
+            >
+              {reviews.map((review) => (
+                <SwiperSlide key={review.id} className={styles.slide}>
+                  <ReviewCard
+                    rating={review.rating}
+                    text={review.text}
+                    author={review.author}
+                    locationType={review.locationType}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
-      <div className={styles.actions}>
-        <Button
-          type="button"
-          variant='secondary'
-          aria-label="Previous"
-          className={styles.arrowButton}
-          onClick={() => swiperRef.current?.slidePrev()}
-          
-        >
-          <svg
-            className={styles.arrowIcon}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.8}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-            />
-          </svg>
-        </Button>
-
-        <Button
-          type="button"
-          variant='secondary'
-          aria-label="Next"
-          className={styles.arrowButton}
-          onClick={() => swiperRef.current?.slideNext()}
-          disabled={isEnd}
-        >
-          <svg
-            className={styles.arrowIcon}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.8}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-            />
-          </svg>
-        </Button>
+            <div className={styles.actions}>
+              <ArrowButton
+                direction="prev"
+                ariaLabel="Previous slide"
+                onClick={() => swiperRef.current?.slidePrev()}
+                disabled={isBeginning}
+              />
+              <ArrowButton
+                direction="next"
+                ariaLabel="Next slide"
+                onClick={() => swiperRef.current?.slideNext()}
+                disabled={isEnd}
+              />
+            </div>
+          </>
+        ) : (
+          <div className={styles.emptyState}>
+            <p className={styles.emptyText}>Відгуків ще немає.</p>
+          </div>
+        )}
       </div>
     </section>
   );

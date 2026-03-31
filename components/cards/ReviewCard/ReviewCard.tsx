@@ -1,22 +1,18 @@
-import Link from 'next/link';
 import styles from './ReviewCard.module.css';
 import RatingStars from '@/components/ui/RatingStars/RatingStars';
 
-// Тип пропсів для картки
 type ReviewCardProps = {
   rating: number;
   text: string;
   author: string;
-  locationName: string;
-  locationSlug?: string;
+  locationType: string;
 };
 
 function ReviewCard({
   rating,
   text,
   author,
-  locationName,
-  locationSlug,
+  locationType,
 }: ReviewCardProps) {
   return (
     <article className={styles.card}>
@@ -26,13 +22,7 @@ function ReviewCard({
     </div>
     <div className={styles.bottom}>
         <span className={styles.authorName}>{author}</span>
-        {locationSlug ? (
-        <Link href={`/locations/${locationSlug}`} className={styles.location}>
-            {locationName}
-        </Link>
-        ) : (
-        <span className={styles.location}>{locationName}</span>
-        )}
+        <span className={styles.location}>{locationType}</span>
     </div>
     </article>
 );
