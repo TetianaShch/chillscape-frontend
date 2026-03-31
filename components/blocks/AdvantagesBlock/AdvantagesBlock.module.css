@@ -1,97 +1,104 @@
 .advantages {
   padding: 40px 0;
-  background: #f6eee9;
+  background: var(  --background);
 }
 
-.title {
+.advntitle {
   font-size: 24px;
   font-weight: 700;
-  color: #1f3d2b;
+  color: var( --text-green);
   margin-bottom: 24px;
 }
 
-.grid {
+.advngrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 24px;
 }
 
-.card {
-  background: #efd8cc;
+.advncard {
+  background: var(--foreground);
   border-radius: 16px;
   padding: 20px;
   transition: transform 0.2s ease;
 }
 
-.card:hover {
+.advncard:hover {
   transform: translateY(-4px);
 }
 
-.icon {
-  width: 32px;
-  height: 32px;
-  color: #1f3d2b;
+.advnicon {
+  width: 64px;
+  height: 64px;
+  color: var(--text-black);
   margin-bottom: 12px;
 }
 
-.cardTitle {
+.advncardTitle {
   font-size: 18px;
   font-weight: 600;
-  color: #1f3d2b;
+  color: var(--text-green);
   margin-bottom: 8px;
 }
 
-.text {
+.advntext {
   font-size: 14px;
-  color: #4a5a50;
+  color: var( --text-green);
   line-height: 1.5;
 }
 
-@media (min-width: 375px) {
-  .title {
+@media only screen and (max-width: 374px){
+  .advntitle {
     font-size: 26px;
   }
 }
 
-@media (min-width: 768px) {
+@media only screen and (min-width: 768px) {
   .advantages {
     padding: 60px 0;
   }
 
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
+  .advngrid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
 
-  .title {
+.div3 {
+  grid-column: span 2;
+}
+
+  .advntitle {
     font-size: 32px;
   }
 
-  .card {
+  .advncard {
     padding: 24px;
   }
 }
 
-@media (min-width: 1440px) {
+@media only screen and (min-width: 1440px) {
   .advantages {
     padding: 80px 0;
   }
 
-  .grid {
+  .advngrid {
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
+  .div3 {
+  grid-column: span 1;
+}
 
-  .title {
+  .advntitle {
     font-size: 40px;
     margin-bottom: 40px;
   }
 
-  .cardTitle {
+  .advncardTitle {
     font-size: 20px;
   }
 
-  .text {
+  .advntext {
     font-size: 16px;
   }
 }

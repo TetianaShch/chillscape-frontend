@@ -26,16 +26,16 @@ export const AdvantagesBlock = () => {
   return (
     <section className={styles.advantages}>
       <div className="container">
-        <h2 className={styles.title}>Ключові переваги</h2>
+        <h2 className={styles.advntitle}>Ключові переваги</h2>
 
-        <div className={styles.grid}>
+        <div className={styles.advngrid}>
           {advantages.map((item) => (
-            <div key={item.id} className={styles.card}>
-              <Icon name={item.icon} className={styles.icon} />
+            <div key={item.id} className={`${styles.advncard} ${styles[`div${item.id}`]}`}>
+              <Icon name={item.icon} className={styles.advnicon} />
 
-              <h3 className={styles.cardTitle}>{item.title}</h3>
+              <h3 className={styles.advncardTitle}>{item.title}</h3>
 
-              <p className={styles.text}>{item.text}</p>
+              <p className={styles.advntext}>{item.text}</p>
             </div>
           ))}
         </div>
