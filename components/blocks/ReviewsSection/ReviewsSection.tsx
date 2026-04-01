@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getFeedbacks } from '@/lib/clientApi';
 // import ReviewCard from '@/components/cards/ReviewCard/ReviewCard';
 import css from './ReviewsSection.module.css';
-import Loader from '@/components/ui/Loader/Loader';
+import { Loader } from '@/components/ui/Loader/Loader';
 import { Button } from '@/components/ui/Button/Button';
 
 interface Props {

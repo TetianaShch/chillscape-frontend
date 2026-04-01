@@ -5,5 +5,5 @@ type Props = {
 };
 
 export default async function AddReviewPage({ params }: Props) {
-  return AddReviewPage;
+  return <p>AddReviewPage</p>;
 }
