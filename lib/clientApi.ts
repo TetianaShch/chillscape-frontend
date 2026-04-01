@@ -32,3 +32,8 @@ export async function getCurrentUser(): Promise<User> {
   const { data } = await api.get<User>('/auth/current');
   return data;
 }
+
+export async function getLocations() {
+  const { data } = await api.get('/locations', { withCredentials: false });
+  return data;
+}

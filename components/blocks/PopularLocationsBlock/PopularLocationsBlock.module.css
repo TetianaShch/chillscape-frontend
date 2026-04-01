@@ -24,19 +24,17 @@
     margin: 0;
 }
 
-.allLink {
+.linkPrimary {
     background: var(--button-primary);
     color: var(--text-white);
-    font-size: 14px;
-    font-weight: 600;
     padding: 8px 16px;
     border-radius: 8px;
-    text-decoration: none;
     transition: background 0.2s;
 }
 
-.allLink:hover {
-    background: var(--button-primary);
+.linkPrimary:hover,
+.linkPrimary:focus {
+    background: var(--button-primary-hover);
 }
 
 .navButtons {
@@ -53,7 +51,6 @@
     border: 1px solid var(--border);
     background: var(--foreground);
     color: var(--text-brown);
-    font-size: 16px;
     cursor: pointer;
     display: flex;
     align-items: center;
