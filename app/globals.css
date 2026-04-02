@@ -23,6 +23,7 @@
   --slider-arrow: #f2f2f2;
   --border: rgba(0, 0, 0, 0.15);
   --link-active: #d8d8d8;
+  --arrow-hover-border: #ffa57a;
 }
 
 html {
@@ -49,7 +50,6 @@ a {
 }
 .link {
   color: var(--text-black);
-  text-decoration: none;
   font-size: 16px;
   display: inline-flex;
   align-items: center;
