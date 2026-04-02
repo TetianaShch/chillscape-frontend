@@ -1,23 +1,25 @@
 import Image from 'next/image';
 import css from './LocationCard.module.css';
 import Link from 'next/link';
+import { Button } from '@/components/ui/Button/Button';
 
 interface LocationCardTypes {
+  id: string;
   src: string;
   alt: string;
   category: string;
   name: string;
 }
-export default function LocationCard({ src, alt, category, name }: LocationCardTypes) {
+
+export default function LocationCard({ id, src, alt, category, name }: LocationCardTypes) {
   return (
     <div className={css.card}>
-      <Image src={src} alt={alt} width={421} height={421} className={css.img}></Image>
+      <Image src={src} alt={alt} className={css.img} />
       <div className={css.bottom}>
-        <p className={css.category}>{category}Category</p>
-        <p>Stars</p>
-        <h3 className={css.name}>{name}Name</h3>
-        <Link href={'locations/:locationId'} className={css.link}>
-          Переглянути локацію
+        <p className={css.category}>{category}</p>
+        <h3 className={css.name}>{name}</h3>
+        <Link href={`/locations/${id}`}>
+          <Button variant="secondary">Переглянути локацію</Button>
         </Link>
       </div>
     </div>
