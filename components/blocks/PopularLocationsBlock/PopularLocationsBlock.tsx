@@ -82,7 +82,7 @@ export default function PopularLocationsBlock() {
       <div className={css.container}>
         <div className={css.header}>
           <h2 className={css.title}>Популярні локації</h2>
-          <Link href="/locations" className={css.linkPrimary}>
+          <Link href="/locations" className={css.allLink}>
             Всі локації
           </Link>
         </div>
@@ -104,8 +104,8 @@ export default function PopularLocationsBlock() {
           spaceBetween={24}
           breakpoints={{
             0: { slidesPerView: 1, spaceBetween: 24 },
-            375: { slidesPerView: 3, spaceBetween: 24 },
-            768: { slidesPerView: 3, spaceBetween: 24 },
+            768: { slidesPerView: 2, spaceBetween: 24 },
+            1440: { slidesPerView: 3, spaceBetween: 24 },
           }}
         >
           {locations.map(loc => (
