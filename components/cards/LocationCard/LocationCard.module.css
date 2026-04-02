@@ -1,5 +1,5 @@
 .card {
-  border: 0px solid var(--border);
+  border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--foreground);
   overflow: hidden;
@@ -7,10 +7,10 @@
 
 .bottom {
   padding: 16px;
+}
 
-  & *:not(:last-child) {
-    margin-bottom: 12px;
-  }
+.bottom > *:not(:last-child) {
+  margin-bottom: 12px;
 }
 
 .category {
@@ -30,25 +30,5 @@
 
   @media screen and (min-width: 1440px) {
     font-size: 26px;
-  }
-}
-
-.link {
-  background-color: var(--button-secondary);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 12px;
-
-  font-weight: 500;
-  color: #4c2613;
-
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-
-  @media screen and (min-width: 1440px) {
-    font-size: 20px;
-    padding: 9px;
   }
 }
