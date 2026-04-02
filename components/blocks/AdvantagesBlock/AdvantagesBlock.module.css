@@ -1,12 +1,10 @@
 .advantages {
-  padding: 40px 0;
-  background: var(  --background);
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .advntitle {
-  font-size: 24px;
-  font-weight: 700;
-  color: var( --text-green);
+  color: var(--text-green);
   margin-bottom: 24px;
 }
 
@@ -17,40 +15,29 @@
 }
 
 .advncard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
   background: var(--foreground);
   border-radius: 16px;
-  padding: 20px;
+  padding: 16px;
   transition: transform 0.2s ease;
-}
-
-.advncard:hover {
-  transform: translateY(-4px);
 }
 
 .advnicon {
   width: 64px;
   height: 64px;
   color: var(--text-black);
-  margin-bottom: 12px;
 }
 
 .advncardTitle {
-  font-size: 18px;
-  font-weight: 600;
   color: var(--text-green);
-  margin-bottom: 8px;
 }
 
 .advntext {
-  font-size: 14px;
-  color: var( --text-green);
-  line-height: 1.5;
-}
-
-@media only screen and (max-width: 374px){
-  .advntitle {
-    font-size: 26px;
-  }
+  color: var(--text-green);
 }
 
 @media only screen and (min-width: 768px) {
@@ -59,13 +46,13 @@
   }
 
   .advngrid {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
 
-.div3 {
-  grid-column: span 2;
-}
+  .div3 {
+    grid-column: span 2;
+  }
 
   .advntitle {
     font-size: 32px;
@@ -86,8 +73,8 @@
     gap: 24px;
   }
   .div3 {
-  grid-column: span 1;
-}
+    grid-column: span 1;
+  }
 
   .advntitle {
     font-size: 40px;
