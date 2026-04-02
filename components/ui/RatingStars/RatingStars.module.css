@@ -1,0 +1,12 @@
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-black);
+}
+
+.star {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
