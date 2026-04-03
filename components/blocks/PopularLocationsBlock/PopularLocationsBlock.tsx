@@ -16,7 +16,7 @@ import { Icon } from '@/components/ui/Icon/Icon';
 
 interface Location {
   _id: string;
-  images: string[];
+  image: string;
   name: string;
   locationType: string;
 }
@@ -43,9 +43,10 @@ export default function PopularLocationsBlock() {
       setLoading(true);
       setError(null);
       try {
-        const data: LocationsResponse = await getLocations();
-        setLocations(data.locations);
-        console.log('locations response', data);
+        const data: Location[] = await getLocations();
+        const popular = data.filter(loc => loc.locationType === 'Пляж').slice(0, 6);
+
+        setLocations(popular);
       } catch (err) {
         console.error(err);
         setError('Не вдалося завантажити локації. Спробуйте пізніше.');
@@ -112,7 +113,7 @@ export default function PopularLocationsBlock() {
             <SwiperSlide key={loc._id}>
               <LocationCard
                 id={loc._id}
-                src={loc.images?.[0]}
+                src={loc.image}
                 alt={loc.name}
                 category={loc.locationType}
                 name={loc.name}
