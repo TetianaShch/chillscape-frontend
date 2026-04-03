@@ -16,11 +16,13 @@ export default async function LocationDetailsPage({ params }: Props) {
   const { locationId } = await params;
 
   const location = await getLocationById(locationId);
-
+  console.log(location);
   if (!location) return notFound();
 
-  const types = await getLocationTypes();
-  const typeName = types.find(t => t.slug === location.locationType)?.type ?? location.locationType;
+  // const types = await getLocationTypes();
+  // console.log(types);
+
+  // const typeName = types.find(t => t.slug === location.locationType)?.type ?? location.locationType;
 
   const author = await getUserById(location.ownerId);
   const authorName = author.name;
@@ -29,7 +31,11 @@ export default async function LocationDetailsPage({ params }: Props) {
     <div className="section">
       <div className="container">
         <div className={css.hero}>
-          <LocationInfoBlock location={location} typeName={typeName} authorName={authorName} />
+          <LocationInfoBlock
+            location={location}
+            typeName={location.locationType}
+            authorName={authorName}
+          />
           <LocationGallery image={location.image} name={location.name} />
         </div>
         <LocationDescription description={location.description} />

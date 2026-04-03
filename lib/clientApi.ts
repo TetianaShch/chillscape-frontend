@@ -42,8 +42,8 @@ export async function getCurrentUser(): Promise<User> {
 }
 
 export async function getLocations(): Promise<Location[]> {
-  const { data } = await api.get<Location[]>('/locations');
-  return data;
+  const { data } = await api.get<{ data: Location[] }>('/locations');
+  return data.data;
 }
 
 export async function getLocationById(id: string): Promise<Location> {
@@ -52,8 +52,8 @@ export async function getLocationById(id: string): Promise<Location> {
 }
 
 export async function getLocationTypes(): Promise<LocationType[]> {
-  const { data } = await api.get<LocationType[]>('/categories/location-types');
-  return data;
+  const { data } = await api.get<{ data: LocationType[] }>('/categories/location-types');
+  return data.data;
 }
 
 export async function getUserById(id: string): Promise<User> {
