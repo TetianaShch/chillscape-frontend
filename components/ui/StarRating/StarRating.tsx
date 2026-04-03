@@ -1,40 +1,51 @@
 'use client';
 
-import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import styles from './StarRating.module.css';
-
-const Rating = dynamic(
-  () => import('react-simple-star-rating').then((m) => m.Rating),
-  { ssr: false }
-);
 
 interface Props {
   value: number;
-  readonly?: boolean;
   size?: number;
+  readonly?: boolean;
   onChange?: (rate: number) => void;
 }
 
 export default function StarRating({
   value,
+  size = 24,
   readonly = true,
-  size = 20,
   onChange,
 }: Props) {
+  const [hovered, setHovered] = useState<number | null>(null);
+
+  const displayed = hovered ?? value;
+
   return (
     <div className={styles.wrapper}>
-      <Rating
-        key={value}
-        initialValue={value}
-        readonly={readonly}
-        size={size}
-        allowFraction={false}
-        onClick={onChange}
-        fillColor="var(--text-black)"
-        emptyColor="transparent"
-        SVGstrokeColor="var(--text-black)"
-        SVGstorkeWidth={1.5}
-      />
+      {[1, 2, 3, 4, 5].map((i) => {
+        const diff = displayed - (i - 1);
+
+        const icon =
+          diff >= 1
+            ? 'icon-star-filled'
+            : diff >= 0.5
+            ? 'icon-star-half'
+            : 'icon-star-rate';
+
+        return (
+          <svg
+            key={i}
+            width={size}
+            height={size}
+            onMouseEnter={() => !readonly && setHovered(i)}
+            onMouseLeave={() => !readonly && setHovered(null)}
+            onClick={() => !readonly && onChange?.(i)}
+            className={!readonly ? styles.starActive : styles.star}
+          >
+            <use href={`/icons.svg#${icon}`} />
+          </svg>
+        );
+      })}
     </div>
   );
 }
