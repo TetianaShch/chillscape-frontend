@@ -1,5 +1,5 @@
 .wrapper {
-  padding-bottom: 74px;
+  padding: 64px 0;
 }
 
 .header {
@@ -38,4 +38,10 @@
 .placeholderSub {
   color: var(--text-green);
   opacity: 0.6;
+}
+
+@media (min-width: 1440px) {
+  .wrapper {
+    padding: 72px 0;
+  }
 }

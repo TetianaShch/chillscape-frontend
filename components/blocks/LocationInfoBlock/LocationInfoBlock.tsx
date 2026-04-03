@@ -12,9 +12,10 @@ interface Props {
   };
   typeName: string;
   authorName: string;
+  regionName: string;
 }
 
-export default function LocationInfoBlock({ location, typeName, authorName }: Props) {
+export default function LocationInfoBlock({ location, typeName, authorName, regionName }: Props) {
   const { name, rate, region, ownerId } = location;
 
   return (
@@ -32,7 +33,7 @@ export default function LocationInfoBlock({ location, typeName, authorName }: Pr
       <div className={css.meta}>
         <div>
           <span className={css.label}>Регіон: </span>
-          <span className={css.value}>{region}</span>
+          <span className={css.value}>{regionName}</span>
         </div>
         <div>
           <span className={css.label}>Тип локації: </span>
