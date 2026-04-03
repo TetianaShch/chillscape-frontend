@@ -1,6 +1,6 @@
 .advantages {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
 .advntitle {
@@ -19,11 +19,11 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  width: 100%;
   gap: 16px;
   background: var(--foreground);
   border-radius: 16px;
   padding: 16px;
-  transition: transform 0.2s ease;
 }
 
 .advnicon {
@@ -42,12 +42,12 @@
 
 @media only screen and (min-width: 768px) {
   .advantages {
-    padding: 60px 0;
+    padding-top: 64px;
+    padding-bottom: 64px;
   }
 
   .advngrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
   }
 
   .div3 {
@@ -55,17 +55,18 @@
   }
 
   .advntitle {
-    font-size: 32px;
+    margin-bottom: 32px;
   }
 
   .advncard {
-    padding: 24px;
+    padding: 16px;
   }
 }
 
 @media only screen and (min-width: 1440px) {
   .advantages {
-    padding: 80px 0;
+    padding-top: 112px;
+    padding-bottom: 112px;
   }
 
   .advngrid {
@@ -76,16 +77,11 @@
     grid-column: span 1;
   }
 
-  .advntitle {
-    font-size: 40px;
-    margin-bottom: 40px;
-  }
-
   .advncardTitle {
-    font-size: 20px;
+    font-size: 26px;
   }
 
   .advntext {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
