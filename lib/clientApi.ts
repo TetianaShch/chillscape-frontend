@@ -37,8 +37,8 @@ export async function logoutUser(): Promise<void> {
 }
 
 export async function getCurrentUser(): Promise<User> {
-  const { data } = await api.get<User>('/users/current');
-  return data;
+  const { data } = await api.get<UserResponse>('/users/current');
+  return data.data;
 }
 
 export async function getLocations(): Promise<Location[]> {

@@ -1,4 +1,4 @@
-const BACKEND_URL = process.env.BACKEND_URL;
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const getBody = async (request: Request) => {
   const method = request.method;
