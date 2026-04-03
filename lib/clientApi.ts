@@ -60,3 +60,18 @@ export async function getUserById(id: string): Promise<User> {
   const { data } = await api.get<{ data: User }>(`/users/${id}`);
   return data.data;
 }
+
+export async function getPopularLocations(): Promise<Location[]> {
+  const { data } = await api.get<Location[]>('/locations/popular');
+  return data;
+}
+export async function getFeedbacks(
+  placeId: string,
+  page = 1,
+  limit = 10
+): Promise<FeedbacksResponse> {
+  const { data } = await api.get<FeedbacksResponse>(
+    `/feedbacks/${placeId}?page=${page}&limit=${limit}`
+  );
+  return data;
+}
