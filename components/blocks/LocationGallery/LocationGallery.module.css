@@ -1,25 +1,146 @@
-.wrapper {
-  width: 100%;
-  height: 223px;
-  border-radius: 24px;
-  overflow: hidden;
-  position: relative;
-  order: 1;
+.sectionLg {
+  padding: 16px;
 }
 
-.image {
+.titleLg {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.filtersLg {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.inputLg,
+.selectLg,
+.sortBtnLg {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: var( --foreground);
+  font-size: 14px;
+}
+
+.gridLg {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.cardLg {
+  background: var( --foreground);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.wrapperLg {
+  position: relative;
+  width: 100%;
+  height: 180px;
+}
+
+.imageLg {
   object-fit: cover;
 }
 
+.cardContentLg {
+  padding: 12px;
+}
+
+.cardTypeLg {
+  font-size: 12px;
+  color: #777;
+}
+
+.cardRating {
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.cardTitleLg {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(  --text-brown);
+}
+
+.cardButtonLg {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: var(--border);
+  background: var(--button-secondary);
+  color: var(  --text-brown);
+  cursor: pointer;
+}
+
+.loadMoreLg {
+  margin: 20px auto 0;
+  display: block;
+  padding: 10px 20px;
+  background: #d88f6f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+@media (min-width: 375px) {
+  .filtersLg {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .inputLg {
+    flex: 1 1 100%;
+  }
+
+  .selectLg {
+    flex: 1;
+  }
+}
+
 @media (min-width: 768px) {
-  .wrapper {
-    height: 469px;
+  .gridLg {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filtersLg {
+    flex-wrap: nowrap;
+  }
+
+  .inputLg {
+    flex: 2;
   }
 }
 
 @media (min-width: 1440px) {
-  .wrapper {
-    height: 503px;
-    flex: 0 0 57%;
+  .sectionLg {
+    padding: 40px;
+  }
+
+  .titleLg {
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+
+  .gridLg {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .wrapperLg {
+    height: 220px;
+  }
+
+  .filtersLg {
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .inputLg {
+    max-width: 300px;
   }
 }
