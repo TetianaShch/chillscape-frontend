@@ -11,28 +11,33 @@ import { Loader } from '@/components/ui/Loader/Loader';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import { useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { Location } from "@/types/locations"
+
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Button } from '@/components/ui/Button/Button';
 
 export default function PopularLocations() {
-  const { data: locations = [], isLoading, isError } = useQuery({
+  const { data: locations = [], isLoading, isError } = useQuery<Location[]>({
     queryKey: ['locations'],
     queryFn: getLocations,
   });
 
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
+  const router = useRouter();
+
 
   if (isLoading) return <Loader />;
-  if (isError) return <h2>Error</h2>;
+  if (isError) return <h2>Не вдалося завантажити локації. Спробуйте пізніше.</h2>;
 
   return (
     <section suppressHydrationWarning>
       <div className={css.locHeader}>
         <h2 className={css.locTitle}>Популярні локації</h2>
-        <Button variant="primary" className={css.allLocBtn}>Всі локації</Button>
+        <Button variant="primary" className={css.allLocBtn} onClick={()=> {router.push("/locations")}}>Всі локації</Button>
       </div>
 
       <Swiper
@@ -62,11 +67,12 @@ export default function PopularLocations() {
           <SwiperSlide key={location._id}>
             <div className={css.locationCard}>
               <LocationCard
-                id={location._id}
-                src={location.image}
-                alt={location.name}
-                category={location.locationType || location.typeName}
-                name={location.name}
+                location={{
+                id: location._id,
+                name: location.name,
+                imageUrl: location.image,
+                type: location.locationType || location.typeName
+              }}
               />
             </div>
           </SwiperSlide>

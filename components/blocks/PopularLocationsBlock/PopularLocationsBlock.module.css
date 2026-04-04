@@ -1,82 +1,98 @@
-.btnContainer{
+/* Контейнер кнопок навігації */
+.btnContainer {
     display: flex;
     gap: 10px;
-    margin-top: 40px;
-    margin-right: 20px;
+    margin-top: 0;
+    margin-right: 2rem;
+    /* гнучкий відступ */
     justify-content: flex-end;
 }
 
-.locationCard{
-max-width: 335px;
-margin-left: auto;
-margin-right: auto;
-}
-
-.locHeader{
-    display: flex;
-
-}
-
-.locTitle{
-    max-width: 221px;
-    margin-left: 20px;
-    margin-right: auto;
+/* Картка локації */
+.locationCard {
+    max-width: 100%;
+    width: 100%;
+    max-height: 90vh;
+    /* не виростає занадто високо */
     margin-left: auto;
+    margin-right: auto;
+    aspect-ratio: 2/3;
+    /* зберігає пропорції */
+    display: flex;
+    flex-direction: column;
 }
 
-.allLocBtn{
-    max-width: 114px;
-    max-height: 48px;
+/* Заголовок секції */
+.locHeader {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+/* Текст заголовка */
+.locTitle {
+    font-size: clamp(24px, 4vw, 52px);
+    /* автоматично масштабується */
+    font-weight: 700;
+    line-height: 1.2;
+    max-width: 80%;
+    /* не ламає верстку на довгих текстах */
+}
+
+/* Кнопка "Всі локації" */
+.allLocBtn {
+    padding: 6px 12px;
     font-size: 16px;
     font-weight: 500;
-
     border: 1px solid var(--color-coral-dark);
     border-radius: 6px;
-    padding: 6px 12px;
-    width: 114px;
-    height: 48px;
-    line-height: 24px;
-
-    margin-bottom: 50px;
-    margin-left: auto;
-    margin-right: auto;
+    min-width: 100px;
+    max-width: 20%;
+    height: auto;
+    line-height: 1.5;
 }
 
-@media (min-width: 768px){
-
-.locationCard{
-    width: 340px;
-}
-
-.locTitle{
-    max-width: 590px;
-    margin-left: 32px;
-}
-
-.allLocBtn {
-    margin-right: 32px;
-}
-
-.btnContainer{
-    margin-right: 32px;
-}
-}
-
-@media (min-width: 1440px){
-    .locationCard{
-        max-width: 421px;
-        height: 624px;
+/* Медіа запити */
+@media (min-width: 768px) {
+    .locationCard {
+        width: 340px;
+        height: auto;
     }
 
     .locTitle {
-        max-width: 768px;
-        margin-left: 64px;
-        font-weight: 700;
-        font-size: 52px;
+        max-width: 60%;
+        margin-left: 2rem;
     }
 
     .allLocBtn {
-        margin-right: 64px;
+        margin-right: 2rem;
     }
 
+    .btnContainer {
+        margin-right: 2rem;
+    }
+}
+
+@media (min-width: 1440px) {
+    .locationCard {
+        max-width: 421px;
+        height: auto;
+    }
+
+    .locTitle {
+        max-width: 50%;
+        margin-left: 4rem;
+        font-size: clamp(36px, 3vw, 52px);
+    }
+
+    .allLocBtn {
+        margin-right: 4rem;
+    }
+
+    .btnContainer {
+        margin-right: 4rem;
+    }
 }
