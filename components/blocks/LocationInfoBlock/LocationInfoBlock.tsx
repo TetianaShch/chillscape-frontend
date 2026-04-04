@@ -1,32 +1,21 @@
 import Link from 'next/link';
-import RatingStars from '@/components/ui/RatingStars/RatingStars';
+import DynamicRating from '@/components/ui/DynamicRating/DynamicRating';
+import { Location } from '@/types/locations';
 import css from './LocationInfoBlock.module.css';
 
 interface Props {
-  location: {
-    image: string;
-    name: string;
-    rate: number;
-    region: string;
-    ownerId: string;
-  };
+  location: Location;
   typeName: string;
   authorName: string;
   regionName: string;
 }
 
 export default function LocationInfoBlock({ location, typeName, authorName, regionName }: Props) {
-  const { name, rate, ownerId } = location;
+  const { _id, name, ownerId, rate } = location;
 
   return (
     <div className={css.wrapper}>
-      <div className={css.rating}>
-        <div className={css.ratingContainer}>
-          <RatingStars rating={rate} />
-        </div>
-        <span className={css.ratingDivider}>·</span>
-        <span className={css.ratingValue}>{rate.toFixed(1)}</span>
-      </div>
+      <DynamicRating locationId={_id} initialRating={rate} />
 
       <h1 className={css.title}>{name}</h1>
 
