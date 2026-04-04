@@ -1,3 +1,7 @@
+.modal {
+  text-align: center;
+}
+
 .title {
   font-size: 26px;
 
@@ -25,16 +29,17 @@
   }
 }
 
-.link {
-  display: block;
-
-  @media screen and (min-width: 768px) {
-    min-width: 203px;
-  }
-}
-
 .btn {
   display: inline-block;
   width: 100%;
   padding: 12px;
+
+  &:last-of-type:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  @media screen and (min-width: 768px) {
+    min-width: 203px;
+  }
 }

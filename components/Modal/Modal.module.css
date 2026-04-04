@@ -24,6 +24,7 @@
   width: 100%;
   position: relative;
   z-index: 1001;
+  text-align: center;
 
   @media screen and (min-width: 768px) {
     padding: 64px;
