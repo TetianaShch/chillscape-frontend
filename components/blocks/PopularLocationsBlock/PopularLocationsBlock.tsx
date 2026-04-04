@@ -11,12 +11,13 @@ import Link from 'next/link';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
-import { Navigation } from 'swiper/modules';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Location } from '@/types/locations';
 
 import 'swiper/css';
-import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
+
 import { Button } from '@/components/ui/Button/Button';
 
 export default function PopularLocations() {
@@ -29,8 +30,15 @@ export default function PopularLocations() {
     queryFn: getLocations,
   });
 
-  const prevRef = useRef<HTMLButtonElement | null>(null);
-  const nextRef = useRef<HTMLButtonElement | null>(null);
+  const swiperRef = useRef<SwiperType | null>(null);
+
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
+  const updateNavigationState = (swiper: SwiperType) => {
+    setIsBeginning(swiper.isBeginning);
+    setIsEnd(swiper.isEnd);
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -54,28 +62,28 @@ export default function PopularLocations() {
         </div>
 
         <Swiper
-          modules={[Navigation]}
-          spaceBetween={24}
-          slidesPerView={1}
-          onBeforeInit={(swiper: SwiperType) => {
-            if (typeof swiper.params.navigation !== 'boolean') {
-              swiper.params.navigation = {
-                ...swiper.params.navigation,
-                prevEl: prevRef.current,
-                nextEl: nextRef.current,
-              };
-            }
+          modules={[Pagination]}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+            updateNavigationState(swiper);
           }}
+          onSlideChange={updateNavigationState}
+          onResize={updateNavigationState}
+          slidesPerView={1}
+          slidesPerGroup={1}
+          spaceBetween={24}
           breakpoints={{
             768: {
               slidesPerView: 2,
+              spaceBetween: 24,
             },
             1440: {
               slidesPerView: 3,
+              spaceBetween: 24,
             },
           }}
         >
-          {locations.map(location => (
+          {locations.map((location) => (
             <SwiperSlide key={location._id}>
               <div className={css.locationCard}>
                 <LocationCard
@@ -92,8 +100,18 @@ export default function PopularLocations() {
         </Swiper>
 
         <div className={css.btnContainer}>
-          <ArrowButton ref={prevRef} direction="prev" ariaLabel="Previous locations" />
-          <ArrowButton ref={nextRef} direction="next" ariaLabel="Next locations" />
+          <ArrowButton
+            direction="prev"
+            ariaLabel="Previous locations"
+            onClick={() => swiperRef.current?.slidePrev()}
+            disabled={isBeginning}
+          />
+          <ArrowButton
+            direction="next"
+            ariaLabel="Next locations"
+            onClick={() => swiperRef.current?.slideNext()}
+            disabled={isEnd}
+          />
         </div>
       </div>
     </section>
