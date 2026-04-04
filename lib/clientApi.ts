@@ -26,6 +26,10 @@ function normalizeUser(raw: Record<string, unknown>): User {
   };
 }
 
+interface LocationsResponse {
+  locations: Location[];
+}
+
 // Auth API
 export async function registerUser(credentials: RegisterCredentials): Promise<User> {
   const { data } = await api.post('/auth/register', credentials);
@@ -48,8 +52,8 @@ export async function getCurrentUser(): Promise<User> {
 
 // Locations API
 export async function getLocations(): Promise<Location[]> {
-  const { data } = await api.get<Location[]>('/locations');
-  return data;
+  const { data } = await api.get<LocationsResponse>('/locations', { withCredentials: false });
+  return data.locations;
 }
 
 export async function getLocationById(id: string): Promise<Location> {
