@@ -1,0 +1,52 @@
+.card {
+  height: 203px;
+  width: 100%;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: var(--foreground);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.text {
+  color: var(--text-brown);
+}
+
+.bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.authorName {
+  color: var(--text-brown);
+  font-weight: 600;
+}
+
+.locationType {
+  color: var(--text-brown);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+@media screen and (min-width: 1440px) {
+  .card {
+    height: 227px;
+    padding: 16px;
+  }
+  .text {
+    font-size: 20px;
+  }
+  .locationType {
+    font-size: 12px;
+  }
+}

@@ -12,8 +12,15 @@ import { Button } from '@/components/ui/Button/Button';
 import css from '../AuthForm.module.css';
 
 const loginSchema = Yup.object({
-  email: Yup.string().email('Невірний формат пошти').required("Обов'язкове поле"),
-  password: Yup.string().min(8, 'Мінімум 8 символів').required("Обов'язкове поле"),
+  email: Yup.string()
+    .email('Невірний формат пошти')
+    .matches(/@.+\..+/, 'Невірний формат пошти')
+    .max(64, 'Максимум 64 символи')
+    .required("Обов'язкове поле"),
+  password: Yup.string()
+    .min(8, 'Мінімум 8 символів')
+    .max(128, 'Максимум 128 символів')
+    .required("Обов'язкове поле"),
 });
 
 export default function LoginForm() {
@@ -27,6 +34,7 @@ export default function LoginForm() {
     onSubmit: async (values, { setSubmitting }) => {
       try {
         const user = await loginUser(values);
+        localStorage.setItem('hasSession', 'true');
         setUser(user);
         const redirect = searchParams.get('redirect') || '/';
         router.push(redirect);
@@ -55,7 +63,7 @@ export default function LoginForm() {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
-          error={formik.touched.email && formik.errors.email ? formik.errors.email : undefined}
+          error={(formik.touched.email || formik.submitCount > 0) && formik.errors.email ? formik.errors.email : undefined}
         />
 
         <Input
@@ -68,7 +76,7 @@ export default function LoginForm() {
           onBlur={formik.handleBlur}
           value={formik.values.password}
           error={
-            formik.touched.password && formik.errors.password ? formik.errors.password : undefined
+            (formik.touched.password || formik.submitCount > 0) && formik.errors.password ? formik.errors.password : undefined
           }
         />
 
