@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Location } from '@/types/location';
 import { Icon } from '@/components/ui/Icon/Icon';
 import css from './LocationCard.module.css';
+import RatingStars from '@/components/ui/RatingStars/RatingStars';
 
 interface LocationCardProps {
   location: Location;
@@ -28,6 +29,9 @@ export default function LocationCard({ location, showEditButton }: LocationCardP
 
       <div className={css.content}>
         {location.type && <span className={css.type}>{location.type}</span>}
+
+        <RatingStars rating={location.rate} />
+
         <h3 className={css.name}>{location.name}</h3>
 
         <div className={css.actions}>
