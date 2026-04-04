@@ -1,0 +1,82 @@
+.btnContainer{
+    display: flex;
+    gap: 10px;
+    margin-top: 40px;
+    margin-right: 20px;
+    justify-content: flex-end;
+}
+
+.locationCard{
+max-width: 335px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.locHeader{
+    display: flex;
+
+}
+
+.locTitle{
+    max-width: 221px;
+    margin-left: 20px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.allLocBtn{
+    max-width: 114px;
+    max-height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+
+    border: 1px solid var(--color-coral-dark);
+    border-radius: 6px;
+    padding: 6px 12px;
+    width: 114px;
+    height: 48px;
+    line-height: 24px;
+
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 768px){
+
+.locationCard{
+    width: 340px;
+}
+
+.locTitle{
+    max-width: 590px;
+    margin-left: 32px;
+}
+
+.allLocBtn {
+    margin-right: 32px;
+}
+
+.btnContainer{
+    margin-right: 32px;
+}
+}
+
+@media (min-width: 1440px){
+    .locationCard{
+        max-width: 421px;
+        height: 624px;
+    }
+
+    .locTitle {
+        max-width: 768px;
+        margin-left: 64px;
+        font-weight: 700;
+        font-size: 52px;
+    }
+
+    .allLocBtn {
+        margin-right: 64px;
+    }
+
+}
