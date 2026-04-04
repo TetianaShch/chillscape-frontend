@@ -26,6 +26,10 @@ function normalizeUser(raw: Record<string, unknown>): User {
   };
 }
 
+interface LocationsResponse {
+  locations: Location[];
+}
+
 // Auth API
 export async function registerUser(credentials: RegisterCredentials): Promise<User> {
   const { data } = await api.post('/auth/register', credentials);
