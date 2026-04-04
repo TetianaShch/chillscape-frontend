@@ -8,9 +8,10 @@ import { Icon } from '@/components/ui/Icon/Icon';
 
 interface Props {
   onClose: () => void;
+  locationId: string;
 }
 
-export default function AddReviewModal({ onClose }: Props) {
+export default function AddReviewModal({ onClose, locationId }: Props) {
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -42,7 +43,7 @@ export default function AddReviewModal({ onClose }: Props) {
         <h2 className={styles.title}>Залишити відгук</h2>
 
         
-        <AddReviewForm onClose={onClose} />
+        <AddReviewForm onClose={onClose} locationId={locationId} />
       </div>
     </div>
   );

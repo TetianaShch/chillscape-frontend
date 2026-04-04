@@ -9,11 +9,13 @@ import { TextArea } from '@/components/ui/TextArea/TextArea';
 
 interface Props {
   onClose: () => void;
+  locationId: string;
 }
 
 interface FormValues {
   rating: number;
   review: string;
+  locationId: string;
 }
 
 const validationSchema = Yup.object({
@@ -25,7 +27,7 @@ const validationSchema = Yup.object({
     .required('Введіть відгук'),
 });
 
-export default function AddReviewForm({ onClose }: Props) {
+export default function AddReviewForm({ onClose, locationId }: Props) {
   const handleSubmit = async (
     values: FormValues,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
@@ -56,7 +58,7 @@ export default function AddReviewForm({ onClose }: Props) {
 
   return (
     <Formik<FormValues>
-      initialValues={{ rating: 0, review: '' }}
+      initialValues={{ rating: 0, review: '', locationId }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
