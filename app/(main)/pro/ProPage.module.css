@@ -1,17 +1,24 @@
-.page {
-  background-color: var(--background);
+.pageWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
-
 .locations {
   padding-top: 32px;
   padding-bottom: 48px;
 }
 
 .heading {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--text-green);
-  margin-bottom: 24px;
+  display: none;
+}
+.loadMoreWrap {
+  display: flex;
+  width: 100%;
+}
+
+.button {
+  display: flex;
+  width: 100%;
 }
 
 @media only screen and (min-width: 768px) {
@@ -24,6 +31,14 @@
     font-size: 28px;
     margin-bottom: 32px;
   }
+  .loadMoreWrap {
+    justify-content: center;
+  }
+
+  .button {
+    min-width: 133px;
+    width: auto;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
@@ -35,5 +50,10 @@
   .heading {
     font-size: 32px;
     margin-bottom: 40px;
+  }
+
+  .button {
+    min-width: 160px;
+    width: auto;
   }
 }

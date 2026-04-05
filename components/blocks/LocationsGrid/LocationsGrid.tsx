@@ -1,9 +1,9 @@
 import LocationCard from '@/components/cards/LocationCard/LocationCard';
-import type { Location } from '@/types/location';
+import type { LocationCardData } from '@/types/location';
 import css from './LocationsGrid.module.css';
 
 type Props = {
-  locations: Location[];
+  locations: LocationCardData[];
   showEditButton?: boolean;
 };
 
