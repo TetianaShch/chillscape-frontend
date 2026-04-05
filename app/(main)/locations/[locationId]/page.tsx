@@ -25,6 +25,11 @@ export default async function LocationDetailsPage({ params }: Props) {
     getLocationTypes(),
     getLocationRegions(),
   ]);
+  const isValidMongoId = /^[a-f\d]{24}$/i.test(locationId);
+
+  if (!isValidMongoId) {
+    notFound();
+  }
 
   if (!location) return notFound();
 
