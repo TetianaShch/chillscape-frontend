@@ -1,5 +1,4 @@
 export type LocationCardData = {
-  rate: number;
   id: string;
   name: string;
   imageUrl: string;
