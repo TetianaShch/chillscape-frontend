@@ -2,7 +2,7 @@
 
 import { createPortal } from 'react-dom';
 import css from './Modal.module.css';
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Icon } from '@/components/ui/Icon/Icon';
 import { Button } from '../ui/Button/Button';
 
@@ -13,9 +13,15 @@ interface ModalProps {
 }
 
 export default function Modal({ className, onClose, children }: ModalProps) {
+  const [mounted, setMounted] = useState(false);
+
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
   };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -30,6 +36,8 @@ export default function Modal({ className, onClose, children }: ModalProps) {
       document.body.style.overflow = '';
     };
   }, [onClose]);
+
+  if (!mounted) return null;
 
   return createPortal(
     <div className={css.backdrop} role="dialog" aria-modal="true" onClick={handleBackdropClick}>
