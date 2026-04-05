@@ -1,6 +1,6 @@
 import { api } from './api';
 
-export type SortValue = '' | 'popular' | 'rating' | 'newest';
+export type SortValue = '' | 'rating' | 'alphabet_asc' | 'alphabet_desc';
 
 export type Filters = {
   search: string;
@@ -15,9 +15,10 @@ export type SelectOption = {
 };
 
 export const sortOptions: SelectOption[] = [
-  { value: 'popular', label: 'За популярністю' },
   { value: 'rating', label: 'За рейтингом' },
   { value: 'newest', label: 'Новіші спочатку' },
+  { value: 'alphabet_asc', label: 'За алфавітом А-Я' },
+  { value: 'alphabet_desc', label: 'За алфавітом Я-А' },
 ];
 
 type LocationTypeField =
@@ -102,17 +103,20 @@ const getNormalizedLocationType = (item: LocationApiItem): string => {
 
 const getSafeImage = (images?: string[]): string => {
   const firstImage = images?.[0]?.trim() || '';
+  if (!firstImage) return '';
 
-  // Тимчасово блокуємо зовнішні URL,
-  // щоб next/image не падав без next.config
-  if (
-    firstImage.startsWith('http://') ||
-    firstImage.startsWith('https://')
-  ) {
+  if (firstImage.startsWith('/')) {
+    return firstImage;
+  }
+  try {
+    const url = new URL(firstImage);
+    if (url.hostname === 'ac.goit.global') {
+      return firstImage;
+    }
+    return '';
+  } catch {
     return '';
   }
-
-  return firstImage;
 };
 
 const mapLocationItem = (item: LocationApiItem): LocationItem => {
@@ -193,7 +197,6 @@ export const fetchLocationTypes = async (): Promise<SelectOption[]> => {
   }));
 };
 
-//повернути sort після мердж
 export const fetchLocations = async (
   params: FetchLocationsParams,
 ): Promise<FetchLocationsResult> => {
@@ -201,6 +204,7 @@ export const fetchLocations = async (
     ...(params.search?.trim() ? { search: params.search.trim() } : {}),
     ...(params.region ? { region: params.region } : {}),
     ...(params.type ? { type: params.type } : {}),
+    ...(params.sort ? { sort: params.sort } : {}),
     ...(params.page ? { page: params.page } : {}),
     ...(params.limit ? { limit: params.limit } : {}),
   };

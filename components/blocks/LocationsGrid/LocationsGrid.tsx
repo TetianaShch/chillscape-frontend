@@ -3,26 +3,19 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import styles from './LocationsGrid.module.css';
-//import { Button } from '@/components/ui/Button/Button';
 import type { LocationItem } from '@/lib/locations';
 
 type LocationsGridProps = {
   locations: LocationItem[];
   isLoading?: boolean;
-  isLoadingMore?: boolean;
-  hasMore?: boolean;
   error?: string;
-  onLoadMore?: () => void;
   renderCard?: (location: LocationItem) => ReactNode;
 };
 
 export default function LocationsGrid({
   locations,
   isLoading = false,
-  //isLoadingMore = false,
-  //hasMore = false,
   error = '',
-  //onLoadMore,
   renderCard,
 }: LocationsGridProps) {
   if (isLoading) {
@@ -78,18 +71,6 @@ export default function LocationsGrid({
           </div>
         ))}
       </div>
-
-      {/* {hasMore && onLoadMore && (
-        <div className={styles.buttonWrapper}>
-          <Button
-            type="button"
-            onClick={onLoadMore}
-            disabled={isLoadingMore}
-          >
-            {isLoadingMore ? 'Завантаження...' : 'Показати ще'}
-          </Button>
-        </div>
-      )} */}
     </>
   );
 }

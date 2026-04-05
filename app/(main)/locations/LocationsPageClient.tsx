@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import FilterPanel from '@/components/blocks/FilterPanel/FilterPanel';
 import LocationsGrid from '@/components/blocks/LocationsGrid/LocationsGrid';
+import Pagination from '@/components/Pagination/Pagination';
 import LocationCard from '@/components/cards/LocationCard/LocationCard';
 import styles from './LocationsPageClient.module.css';
 
@@ -16,31 +17,10 @@ import {
 } from '@/lib/locations';
 
 // к-сть карток за один запит
-const PER_PAGE = 10;
-
-// локальне сортування масиву локацій
-const sortLocations = (
-  items: LocationItem[],
-  sort: Filters['sort'],
-): LocationItem[] => {
-  const sorted = [...items];
-
-  if (sort === 'newest') {
-    sorted.sort((a, b) => {
-      const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
-      const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
-
-      return bTime - aTime;
-    });
-  }
-
-  // popular і rating поки не чіпаємо,
-  // бо під них у поточній моделі нема даних
-  return sorted;
-};
+const PER_PAGE = 5;
 
 export default function LocationsPageClient() {
-  // стан фільтрів для FilterPanel
+  // стан фільтрів
   const [filters, setFilters] = useState<Filters>({
     search: '',
     region: '',
@@ -51,7 +31,7 @@ export default function LocationsPageClient() {
   // поточна сторінка
   const [page, setPage] = useState(1);
 
-  // загальна к-сть сторінок із бек
+  // загальна к-сть сторінок із бекенду
   const [totalPages, setTotalPages] = useState(1);
 
   // дані для селектів
@@ -64,12 +44,11 @@ export default function LocationsPageClient() {
   // стани завантаження
   const [isLoadingFilters, setIsLoadingFilters] = useState(false);
   const [isLoadingLocations, setIsLoadingLocations] = useState(false);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  // текст помилки для списку
+  // текст помилки
   const [error, setError] = useState('');
 
-  // регіони і типи локацій для фільтрів
+  // Завантаження фільтрів
   useEffect(() => {
     const loadFilterOptions = async () => {
       try {
@@ -92,7 +71,7 @@ export default function LocationsPageClient() {
     loadFilterOptions();
   }, []);
 
-  // завантажуємо локації при першому рендері та при зміні фільтрів
+  // Завантаження локацій при зміні фільтрів, сортування або сторінки
   useEffect(() => {
     const loadLocations = async () => {
       try {
@@ -104,21 +83,16 @@ export default function LocationsPageClient() {
           region: filters.region,
           type: filters.type,
           sort: filters.sort,
-          page: 1,
+          page,
           limit: PER_PAGE,
         });
 
-        const sortedLocations = sortLocations(data.locations, filters.sort);
-
-        // при зміні фільтрів повністю замінюємо список
-        setLocations(sortedLocations);
-        setPage(1);
+        setLocations(data.locations);
         setTotalPages(data.totalPages);
       } catch (error) {
         console.error('Помилка при завантаженні локацій:', error);
         setError('Не вдалося завантажити локації');
         setLocations([]);
-        setPage(1);
         setTotalPages(1);
       } finally {
         setIsLoadingLocations(false);
@@ -126,52 +100,29 @@ export default function LocationsPageClient() {
     };
 
     loadLocations();
-  }, [filters.search, filters.region, filters.type, filters.sort]);
+  }, [filters.search, filters.region, filters.type, filters.sort, page]);
 
-  // оновлюємо фільтри
+  // Оновлення фільтрів
   const onFiltersChange = (next: Partial<Filters>) => {
     setFilters((prev) => ({
       ...prev,
       ...next,
     }));
 
-    // при зміні будь-якого фільтра повертаємось на першу сторінку
+    // При зміні будь-якого фільтра повертаємось на першу сторінку
     setPage(1);
   };
 
-  // довантаження наступної сторінки
-  const handleLoadMore = async () => {
-    if (isLoadingMore || page >= totalPages) return;
+  // Зміна сторінки
+  const handlePageChange = (nextPage: number) => {
+    if (nextPage < 1 || nextPage > totalPages || nextPage === page) return;
 
-    try {
-      setIsLoadingMore(true);
-      setError('');
+    setPage(nextPage);
 
-      const nextPage = page + 1;
-
-      const data = await fetchLocations({
-        search: filters.search,
-        region: filters.region,
-        type: filters.type,
-        sort: filters.sort,
-        page: nextPage,
-        limit: PER_PAGE,
-      });
-
-      // додаємо нову порцію до поточного списку
-      // і після цього ще раз сортуємо
-      setLocations((prev) =>
-        sortLocations([...prev, ...data.locations], filters.sort),
-      );
-
-      setPage(nextPage);
-      setTotalPages(data.totalPages);
-    } catch (error) {
-      console.error('Помилка при довантаженні локацій:', error);
-      setError('Не вдалося завантажити наступну сторінку');
-    } finally {
-      setIsLoadingMore(false);
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   return (
@@ -191,10 +142,7 @@ export default function LocationsPageClient() {
         <LocationsGrid
           locations={locations}
           isLoading={isLoadingLocations}
-          isLoadingMore={isLoadingMore}
-          hasMore={page < totalPages}
           error={error}
-          onLoadMore={handleLoadMore}
           renderCard={(location) => (
             <LocationCard
               id={location.id}
@@ -204,6 +152,12 @@ export default function LocationsPageClient() {
               name={location.name}
             />
           )}
+        />
+
+        <Pagination
+          totalPages={totalPages}
+          currentPage={page}
+          setCurrentPage={handlePageChange}
         />
       </div>
     </section>
