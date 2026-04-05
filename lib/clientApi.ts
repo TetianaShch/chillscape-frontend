@@ -52,8 +52,8 @@ export async function getCurrentUser(): Promise<User> {
 
 // Locations API
 export async function getLocations(): Promise<Location[]> {
-  const { data } = await api.get<{ data: Location[] }>('/locations');
-  return data.data;
+  const { data } = await api.get<{ locations: Location[] }>('/locations');
+  return data.locations;
 }
 
 export async function getLocationById(id: string): Promise<Location> {
@@ -69,8 +69,7 @@ export async function getLocationTypes(): Promise<LocationType[]> {
 export async function getLocationRegions(): Promise<Regions[]> {
   const { data } = await api.get<{ data: Regions[] }>('/categories/');
   return data.data;
-  }
-
+}
 
 // Users API
 export async function getUserById(userId: string): Promise<User> {
