@@ -5,6 +5,7 @@ import FilterPanel from '@/components/blocks/FilterPanel/FilterPanel';
 import LocationsGrid from '@/components/blocks/LocationsGrid/LocationsGrid';
 import Pagination from '@/components/Pagination/Pagination';
 import type { Location as LocationCardData } from '@/types/location';
+import { Button } from '@/components/ui/Button/Button';
 import styles from './LocationsPageClient.module.css';
 
 import {
@@ -17,7 +18,7 @@ import {
 } from '@/lib/locations';
 
 // к-сть карток за один запит
-const PER_PAGE = 3;
+const PER_PAGE = 9;
 
 export default function LocationsPageClient() {
   // стан фільтрів
@@ -154,6 +155,14 @@ return (
         <p className={styles.locationsMessage}>За вашим запитом нічого не знайдено.</p>
       ) : (
         <LocationsGrid locations={cardLocations} />
+      )}
+      {page < totalPages && !isLoadingLocations && !error && cardLocations.length > 0 && (
+        <Button
+          type='button'
+          className={styles.loadMoreButton}
+          onClick={() => handlePageChange(page + 1)}
+        >
+          Показати ще</Button>
       )}
 
       <Pagination

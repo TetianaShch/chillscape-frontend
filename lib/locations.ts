@@ -1,6 +1,6 @@
 import { api } from './api';
 
-export type SortValue = '' | 'rating' | 'alphabet_asc' | 'alphabet_desc';
+export type SortValue = '' | 'rating' | 'newest' | 'alphabet_asc' | 'alphabet_desc';
 
 export type Filters = {
   search: string;
@@ -109,11 +109,8 @@ const getSafeImage = (images?: string[]): string => {
     return firstImage;
   }
   try {
-    const url = new URL(firstImage);
-    if (url.hostname === 'ac.goit.global') {
-      return firstImage;
-    }
-    return '';
+  new URL(firstImage);
+    return firstImage;
   } catch {
     return '';
   }
@@ -188,7 +185,7 @@ export const fetchLocationTypes = async (): Promise<SelectOption[]> => {
   const locations = await fetchAllLocationsForFilters();
 
   const types = uniqueStrings(
-    locations.map((item) => item.type ?? ''),
+    locations.map((item) => getNormalizedLocationType(item)),
   );
 
   return types.map((type) => ({
