@@ -22,7 +22,8 @@
   font-size: 28px;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: var(--color-scheme-1-text);
+  color: #000;
+  max-width: 221px;
 }
 
 .allLocBtn {
@@ -34,6 +35,8 @@
   border: 1px solid var(--color-coral-dark);
   border-radius: 6px;
   line-height: 1.5;
+  width: 114px;
+  height: 48px;
 }
 
 .locationCard {
@@ -50,8 +53,7 @@
 
 @media (max-width: 767px) {
   .locHeader {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
   }
 }
 
@@ -62,6 +64,7 @@
 
   .locTitle {
     font-size: 36px;
+    max-width: 590px;
   }
 }
 
@@ -72,5 +75,9 @@
 
   .locTitle {
     font-size: 52px;
+    max-width: 768px;
+  }
+  .allLocBtn {
+      width: 136px;
   }
 }
