@@ -128,7 +128,7 @@ export default function LocationsPageClient() {
 
   const cardLocations: LocationCardData[] = locations.map((location) => ({
     id: location.id,
-    imageUrl: location.image || '',
+    imageUrl: location.image || '/images/placeholder.jpg',
     name: location.name,
     typeName: location.locationType,
     rating: 0,
