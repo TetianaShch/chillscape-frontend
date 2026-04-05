@@ -84,6 +84,7 @@ export default function PopularLocations() {
                     name: location.name,
                     imageUrl: location.image,
                     type: location.locationType || location.typeName,
+                    rate: location.rate,
                   }}
                 />
               </div>
