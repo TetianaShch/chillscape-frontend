@@ -1,5 +1,5 @@
 import type { User } from '@/types/user';
-import type { Location as SimpleLocation } from '@/types/location';
+import type { LocationCardData, Location as SimpleLocation } from '@/types/location';
 import { Location, LocationType, Regions } from '@/types/locations';
 import { FeedbacksResponse } from '@/types/feedback';
 import { api } from './api';
