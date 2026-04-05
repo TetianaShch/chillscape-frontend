@@ -1,5 +1,6 @@
 import type { User } from '@/types/user';
-import { Location, LocationType } from '@/types/locations';
+import type { Location as SimpleLocation } from '@/types/location';
+import { Location, LocationType, Regions } from '@/types/locations';
 import { FeedbacksResponse } from '@/types/feedback';
 import { api } from './api';
 
@@ -15,21 +16,29 @@ export interface RegisterCredentials {
   password: string;
 }
 
-export type UserResponse = {
-  status: number;
-  message: string;
-  data: User;
-};
+// Backend returns MongoDB _id, frontend expects id
+function normalizeUser(raw: Record<string, unknown>): User {
+  return {
+    id: String(raw._id || raw.id),
+    name: String(raw.name),
+    email: String(raw.email),
+    avatar: raw.avatar ? String(raw.avatar) : undefined,
+  };
+}
+
+interface LocationsResponse {
+  locations: Location[];
+}
 
 // Auth API
 export async function registerUser(credentials: RegisterCredentials): Promise<User> {
-  const { data } = await api.post<User>('/auth/register', credentials);
-  return data;
+  const { data } = await api.post('/auth/register', credentials);
+  return normalizeUser(data);
 }
 
 export async function loginUser(credentials: LoginCredentials): Promise<User> {
-  const { data } = await api.post<User>('/auth/login', credentials);
-  return data;
+  const { data } = await api.post('/auth/login', credentials);
+  return normalizeUser(data);
 }
 
 export async function logoutUser(): Promise<void> {
@@ -37,13 +46,14 @@ export async function logoutUser(): Promise<void> {
 }
 
 export async function getCurrentUser(): Promise<User> {
-  const { data } = await api.get<User>('/users/current');
-  return data;
+  const { data } = await api.get('/users/current');
+  return normalizeUser(data.data);
 }
 
+// Locations API
 export async function getLocations(): Promise<Location[]> {
-  const { data } = await api.get<Location[]>('/locations');
-  return data;
+  const { data } = await api.get<{ locations: Location[] }>('/locations');
+  return data.locations;
 }
 
 export async function getLocationById(id: string): Promise<Location> {
@@ -52,13 +62,33 @@ export async function getLocationById(id: string): Promise<Location> {
 }
 
 export async function getLocationTypes(): Promise<LocationType[]> {
-  const { data } = await api.get<LocationType[]>('/categories/location-types');
-  return data;
+  const { data } = await api.get<{ data: LocationType[] }>('/categories/location-types');
+  return data.data;
 }
 
-export async function getUserById(id: string): Promise<User> {
-  const { data } = await api.get<{ data: User }>(`/users/${id}`);
+export async function getLocationRegions(): Promise<Regions[]> {
+  const { data } = await api.get<{ data: Regions[] }>('/categories/');
   return data.data;
+}
+
+// Users API
+export async function getUserById(userId: string): Promise<User> {
+  const { data } = await api.get(`/users/${userId}`);
+  return normalizeUser(data.data);
+}
+
+function normalizeLocation(raw: Record<string, unknown>): SimpleLocation {
+  return {
+    id: String(raw._id || raw.id),
+    name: String(raw.name),
+    imageUrl: raw.imageUrl ? String(raw.imageUrl) : undefined,
+    type: raw.type ? String(raw.type) : undefined,
+  };
+}
+
+export async function getUserLocations(userId: string): Promise<SimpleLocation[]> {
+  const { data } = await api.get(`/users/${userId}/locations`);
+  return (data.data as Record<string, unknown>[]).map(normalizeLocation);
 }
 
 export async function getFeedbacks(
