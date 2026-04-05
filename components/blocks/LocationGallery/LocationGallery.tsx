@@ -6,7 +6,7 @@ interface Props {
   name: string;
 }
 
-export default function LocationGallery({ image, name }: Props) {
+export default function LocationImg({ image, name }: Props) {
   return (
     <div className={css.wrapperLg}>
       <Image src={image} alt={name} fill className={css.imageLg} priority />{' '}
@@ -21,7 +21,7 @@ interface LocationCardProps extends Props {
 function LocationCard({ image, name, type, rating}: LocationCardProps) {
   return (
     <div className={css.cardLg}>
-      <LocationGallery image={image} name={name} />
+      <LocationImg image={image} name={name} />
 
       <div className={css.cardContentLg}>
         <span className={css.cardTypeLg}>{type}</span>
@@ -44,7 +44,7 @@ function LocationCard({ image, name, type, rating}: LocationCardProps) {
   );
 }
 
-export function LocationsGrid() {
+export function LocationGallery() {
   const locations = [
     {
       id: 1,
