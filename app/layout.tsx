@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import AuthProvider from '@/components/auth/AuthProvider';
 import 'modern-normalize/modern-normalize.css';
 import './globals.css';
+import UpdateProfileModal from '@/components/UpdateProfileModal/UpdateProfileModal';
 
 const montserrat = Montserrat({
   variable: '--montserrat-font',

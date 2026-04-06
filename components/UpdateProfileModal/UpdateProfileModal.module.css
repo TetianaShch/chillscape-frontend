@@ -1,0 +1,213 @@
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal {
+    position: relative;
+    background-color: #fff2ec;
+    border-radius: 20px;
+    padding: 48px 20px 40px;
+    width: 100%;
+    max-width: 343px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #1a1a1a;
+    line-height: 1;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #1a1a1a;
+    text-align: center;
+}
+
+/* Avatar section */
+.avatarSection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.label {
+    font-size: 16px;
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+.avatarRow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatarPreview {
+    width: 117px;
+    height: 117px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.uploadBtn {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    padding: 6px 12px;
+    width: 180px;
+    height: 35px;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.uploadBtn:hover {
+    background: #f2e8e4;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+/* Name section */
+.nameSection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.input {
+    border-radius: 6px;
+    padding: 8px;
+    width: 294px;
+    height: 40px;
+    border: 1px solid #e0d6cf;
+    background: #ffe5d9;
+    font-size: 16px;
+    color: #1a1a1a;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input::placeholder {
+    color: #aaa;
+}
+
+.input:focus {
+    border-color: #ca6a3d;
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cancelBtn,
+.confirmBtn {
+    border-radius: 6px;
+    padding: 6px 12px;
+    width: 294px;
+    height: 48px;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+}
+
+.cancelBtn {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #1a1a1a;
+    border: 1px solid rgba(0, 0, 0, 0.15)
+}
+
+.confirmBtn {
+    background-color: #ca6a3d;
+    color: white;
+}
+
+.confirmBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+    .modal {
+        max-width: 704px;
+        padding: 64px;
+    }
+
+    .title {
+        font-size: 32px;
+    }
+
+    .actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .cancelBtn,
+    .confirmBtn {
+        width: 203px;
+        height: 48px;
+    }
+    
+    .avatarRow{
+        flex-direction: row;
+    }
+
+    .input{
+        border-radius: 6px;
+        padding: 8px;
+        width: 576px;
+        height: 40px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .modal {
+        max-width: 768px;
+        padding: 64px 64px 56px;
+    }
+
+    .title {
+        font-size: 48px;
+    }
+
+    .cancelBtn,
+    .confirmBtn {
+        width: 203px;
+    }
+
+    .closeBtn {
+        top: 24px;
+        right: 24px;
+    }
+
+    .uploadBtn{
+        width: 219px;
+        height: 35px;
+    }
+}

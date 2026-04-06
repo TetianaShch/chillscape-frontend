@@ -76,6 +76,7 @@ export default function Header() {
               <Link href="/locations/add" className={css.btnPrimary}>
                 Поділитись локацією
               </Link>
+              <Link href={"/update-profile"}>
               <div className={css.userInfo}>
                 <div className={css.avatar}>
                   <Image
@@ -88,7 +89,8 @@ export default function Header() {
                   />
                 </div>
                 <span className={css.userName}>{user?.name}</span>
-              </div>
+                </div>
+              </Link>
               <span className={css.divider}></span>
               <button className={css.logoutBtn} aria-label="Вийти" onClick={handleLogout}>
                 <Icon name="icon-logout" width={24} height={24} />
