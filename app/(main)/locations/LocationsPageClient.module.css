@@ -1,0 +1,59 @@
+.page {
+  padding-top: 32px;
+  padding-bottom: 64px;
+}
+
+.filtersMessage {
+  margin-bottom: 24px;
+  text-align: center;
+  color: var(--text-brown);
+}
+
+.filtersLoaderWrap {
+  margin-bottom: 24px;
+}
+
+.locationsLoaderWrap {
+  width: 100%;
+}
+
+.appendLoaderWrap {
+  width: 100%;
+}
+
+.loadMoreWrap {
+  display: flex;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.loadMoreButton {
+  display: flex;
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .page {
+    padding-bottom: 96px;
+  }
+
+  .loadMoreWrap {
+    justify-content: center;
+  }
+
+  .loadMoreButton {
+    min-width: 133px;
+    width: auto;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .page {
+    padding-bottom: 120px;
+  }
+
+  .loadMoreButton {
+    min-width: 160px;
+    width: auto;
+  }
+}

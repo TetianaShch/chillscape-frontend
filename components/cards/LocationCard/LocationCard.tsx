@@ -1,51 +1,71 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Location } from '@/types/location';
+import type { LocationCardData } from '@/types/location';
 import { Icon } from '@/components/ui/Icon/Icon';
+import RatingStars from '@/components/ui/RatingStars/RatingStars';
 import css from './LocationCard.module.css';
+import styles from '../../ui/Button/Button.module.css';
 
 interface LocationCardProps {
-  location: Location;
+  location: LocationCardData;
   showEditButton?: boolean;
+  eagerImage?: boolean;
 }
 
-export default function LocationCard({ location, showEditButton }: LocationCardProps) {
+export default function LocationCard({
+  location,
+  showEditButton = false,
+  eagerImage = false,
+}: LocationCardProps) {
+  const isLocalUploadImage =
+    location.imageUrl.startsWith('http://localhost:3000/uploads/') ||
+    location.imageUrl.startsWith('https://localhost:3000/uploads/');
+
   return (
-    <div className={css.card}>
+    <article className={css.card}>
       <div className={css.imageWrapper}>
-        {location.imageUrl ? (
-          <Image
-            src={location.imageUrl}
-            alt={location.name}
-            fill
-            sizes="(min-width: 1440px) 400px, (min-width: 768px) 336px, 100vw"
-            className={css.image}
-          />
-        ) : (
-          <div className={css.placeholder} />
-        )}
+        <Image
+          src={location.imageUrl}
+          alt={location.name}
+          fill
+          sizes="(min-width: 1440px) 400px, (min-width: 768px) 336px, 100vw"
+          className={css.image}
+          loading={eagerImage ? 'eager' : 'lazy'}
+          style={{ objectFit: 'cover' }}
+          unoptimized={isLocalUploadImage}
+        />
       </div>
 
       <div className={css.content}>
-        {location.type && <span className={css.type}>{location.type}</span>}
+        <span className={css.type}>{location.typeName}</span>
+
+        <div className={css.rating}>
+          <RatingStars rating={location.rating} />
+        </div>
+
         <h3 className={css.name}>{location.name}</h3>
 
         <div className={css.actions}>
-          <Link href={`/locations/${location.id}`} className={css.viewBtn}>
+          <Link
+            href={`/locations/${location.id}`}
+            className={`${styles.secondary} ${styles.btn} ${css.viewBtn}`}
+          >
             Переглянути локацію
           </Link>
 
           {showEditButton && (
             <Link
               href={`/locations/${location.id}/edit`}
-              className={css.editBtn}
+              className={`${styles.secondary} ${styles.btn} ${css.editBtn}`}
               aria-label="Редагувати локацію"
             >
-              <Icon name="icon-edit" width={20} height={20} />
+              <Icon name="icon-edit" width={24} height={24} />
             </Link>
           )}
         </div>
       </div>
-    </div>
+    </article>
   );
 }

@@ -1,0 +1,142 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: var(--modal-backdrop);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal {
+  position: relative;
+  max-width: 334px;
+  width: 100%;
+  padding: 64px 20px;
+  background-color: var(--background);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.title {
+  color: var(--text-black);
+  text-align: center;
+  font-size: 26px;
+}
+
+.textArea {
+  width: 100%;
+}
+.label {
+  text-align: left;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 0;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 24px;
+}
+
+.errorMessage {
+  color: var(--red-error);
+  font-size: 14px;
+}
+
+.starWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.textareaWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.buttonsWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.buttonsWrapper button {
+  width: 100%;
+}
+
+.buttonLoaderContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Планшет */
+@media (min-width: 768px) {
+  .modal {
+    max-width: 704px;
+    width: 100%;
+    padding: 64px 32px;
+  }
+  .buttonsWrapper {
+    flex-direction: row;
+    justify-content: center;
+    gap: 24px;
+  }
+  .buttonsWrapper button {
+    width: 203px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+}
+
+/* Десктоп */
+@media (min-width: 1440px) {
+  .modal {
+    max-width: 768px;
+    width: 100%;
+    padding: 64px;
+  }
+  .buttonsWrapper {
+    flex-direction: row;
+    justify-content: center;
+    gap: 24px;
+  }
+  .buttonsWrapper button {
+    width: 203px;
+  }
+
+  .title {
+    font-size: 48px;
+  }
+}
