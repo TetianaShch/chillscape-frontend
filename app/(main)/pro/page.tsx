@@ -1,10 +1,6 @@
 'use client';
 
-<<<<<<< HEAD
-import { useEffect } from 'react';
-=======
 import { useEffect, useMemo, useState } from 'react';
->>>>>>> 2df84bf182ad08bf465f4393a4a923a388fda7e1
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/store/authStore';
@@ -17,10 +13,7 @@ import {
 import ProfileInfo from '@/components/blocks/ProfileInfo/ProfileInfo';
 import PrivateProfilePlaceholder from '@/components/blocks/ProfilePlaceholder/PrivateProfilePlaceholder';
 import { Loader } from '@/components/ui/Loader/Loader';
-<<<<<<< HEAD
-=======
 import { Button } from '@/components/ui/Button/Button';
->>>>>>> 2df84bf182ad08bf465f4393a4a923a388fda7e1
 import css from './ProPage.module.css';
 import LocationsGrid from '@/components/blocks/LocationsGrid/LocationsGrid';
 import type { LocationType } from '@/types/locations';
@@ -38,13 +31,6 @@ export default function ProPage() {
   const router = useRouter();
   const { user, isLoggedIn, isAuthLoaded } = useAuthStore();
 
-<<<<<<< HEAD
-  const { data: locations = [], isLoading } = useQuery({
-    queryKey: ['userLocations', user?.id],
-    queryFn: () => getUserLocations(user!.id),
-    enabled: !!user,
-  });
-=======
   const [locations, setLocations] = useState<LocationCardData[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
@@ -80,7 +66,6 @@ export default function ProPage() {
       setHasMore(initialLocationsData.page < initialLocationsData.totalPages);
     }
   }, [initialLocationsData, typeNameMap]);
->>>>>>> 2df84bf182ad08bf465f4393a4a923a388fda7e1
 
   useEffect(() => {
     if (isAuthLoaded && !isLoggedIn) {
@@ -88,8 +73,6 @@ export default function ProPage() {
     }
   }, [isAuthLoaded, isLoggedIn, router]);
 
-<<<<<<< HEAD
-=======
   const handleLoadMore = async () => {
     if (!user || isLoadingMore || !hasMore) return;
 
@@ -111,20 +94,15 @@ export default function ProPage() {
     }
   };
 
->>>>>>> 2df84bf182ad08bf465f4393a4a923a388fda7e1
   if (!isAuthLoaded || !isLoggedIn || !user) return null;
 
   return (
     <div className={css.page}>
-<<<<<<< HEAD
-      <ProfileInfo name={user.name} avatar={user.avatar} articleCount={locations.length} />
-=======
       <ProfileInfo
         name={user.name}
         avatar={user.avatar}
         articleCount={user.articlesAmount ?? locations.length}
       />
->>>>>>> 2df84bf182ad08bf465f4393a4a923a388fda7e1
 
       <section className={`${css.locations} section`}>
         <div className={`${css.pageWrap} container`}>
@@ -133,13 +111,6 @@ export default function ProPage() {
           {isLocationsLoading || isTypesLoading ? (
             <Loader />
           ) : locations.length > 0 ? (
-<<<<<<< HEAD
-            <div className={css.grid}>
-              {locations.map(location => (
-                <LocationCard key={location.id} location={location} showEditButton />
-              ))}
-            </div>
-=======
             <>
               <LocationsGrid locations={locations} showEditButton />
 
@@ -163,7 +134,6 @@ export default function ProPage() {
                 </div>
               )}
             </>
->>>>>>> 2df84bf182ad08bf465f4393a4a923a388fda7e1
           ) : (
             <PrivateProfilePlaceholder />
           )}
