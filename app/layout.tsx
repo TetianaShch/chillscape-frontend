@@ -23,7 +23,7 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="uk">
+    <html lang="uk" data-scroll-behavior="smooth">
       <body className={montserrat.variable}>
         <Toaster position="top-right" />
         <AuthProvider>
