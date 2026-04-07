@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { getFeedbacks } from '@/lib/clientApi';
-import { FeedbacksResponse } from '@/types/feedback';
-import { calcAverageRating } from '@/utils/rating';
+import { getFeedbacks } from '../lib/clientApi';
+import { FeedbacksResponse } from '../types/feedback';
+import { calcAverageRating } from '../utils/rating';
 
 interface UseFeedbacksReturn {
   feedbacks: FeedbacksResponse['feedbacks'];

@@ -36,8 +36,8 @@
 .btn {
   background-color: transparent;
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
   color: var(--text-black);
   transition:
     color var(--motion-base) var(--ease-standard),

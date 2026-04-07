@@ -97,6 +97,10 @@
   display: none;
 }
 
+.authPlaceholder {
+  display: none;
+}
+
 .mobileRight {
   display: flex;
   align-items: center;
@@ -198,12 +202,21 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 375px;
+  width: 100%;
 }
 
 .drawerAuthBtns {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.publishBottomMobile {
+  display: flex;
 }
 
 .userInfo {
@@ -290,16 +303,14 @@
   .drawerAuthBtns {
     display: none;
   }
-}
 
-@media screen and (max-width: 767px) {
-  .mobileRightMenuOpen .authBtns {
+  .publishBottomMobile {
     display: none;
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 1439px) {
-  .drawerBottom {
+@media screen and (max-width: 767px) {
+  .mobileRightMenuOpen .authBtns {
     display: none;
   }
 }
@@ -313,6 +324,12 @@
     display: flex;
     align-items: center;
     gap: 32px;
+  }
+
+  .authPlaceholder {
+    display: block;
+    min-width: 220px;
+    min-height: 40px;
   }
 
   .btnPrimary,

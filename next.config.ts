@@ -3,6 +3,7 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactCompiler: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -25,6 +26,12 @@ const nextConfig: NextConfig = {
         protocol: 'http',
         hostname: 'localhost',
         port: '3000',
+        pathname: '/uploads/**',
+      },
+
+      {
+        protocol: 'https',
+        hostname: 'chillscape-backend.onrender.com',
         pathname: '/uploads/**',
       },
     ],
